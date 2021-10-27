@@ -4,16 +4,16 @@
             <div class="text-center pb-3 border-bottom">
                 <h1>Login</h1>
             </div>
-            <form action="" method="post" class="mt-4  ps-3 pe-3 ">
+            <form class="mt-4  ps-3 pe-3 "  [formGroup]="bioSection" (ngSubmit)="callingFunction()">
                 <div class="mb-3">
                     <label for="inputUsername" class="form-label">Username</label>
                     <input type="text" class="form-control" id="inputUsername"
-                        placeholder="">
+                        placeholder="" formControlName="username">
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">Password</label>
                     <input type="password" class="form-control" id="inputPassword"
-                        placeholder="">
+                        placeholder="" formControlName="password">
                 </div>
                 <div class="text-center mt-4">
                     <button type="submit" 
