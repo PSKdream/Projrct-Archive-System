@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
   content = ""
   ngOnInit(): void {
     // console.log(this._loginService.getDataUser())
-    let contentList = ['user-manage']
+    let contentList = ['user-management']
     this.content = String(this.route.snapshot.paramMap.get("id"));
     
     if (contentList.indexOf(this.content) === -1 )
