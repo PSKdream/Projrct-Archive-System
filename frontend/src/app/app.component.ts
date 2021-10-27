@@ -11,6 +11,10 @@ export class AppComponent {
   isNavView = true;
   constructor(private router: Router) {}
   ngDoCheck(){
-    this.isNavView = !(this.router.url=="/login")
+    let currentUrl = this.router.url.split('/')[1]
+    let withoutUrl = ['login','admin']
+    // console.log(withoutUrl.indexOf(currentUrl));
+
+    this.isNavView = (withoutUrl.indexOf(currentUrl)===-1)
   }
 }

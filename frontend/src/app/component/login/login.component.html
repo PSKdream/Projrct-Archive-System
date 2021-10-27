@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row  justify-content-center mt-5" style="height: 80vh;">
+        <div class="col-12 col-md-7 col-xl-5 row align-content-center">
+            <div class="p-5 pt-4 border rounded">
+                <div class="text-center pb-3 border-bottom">
+                    <h1>Login</h1>
+                </div>
+                <form class="mt-4  ps-3 pe-3 " [formGroup]="bioSection" (ngSubmit)="callingFunction()">
+                    <div class="mb-3">
+                        <label for="inputUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="inputUsername" placeholder=""
+                            formControlName="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="inputPassword" placeholder=""
+                            formControlName="password">
+                    </div>
+                    <div>
+                        <p class="text-danger">{{loginFail}}</p>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary border rounded-pill"
+                            style="width: 80%;">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
