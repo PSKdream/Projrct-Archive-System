@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { LoginService } from '../../service/login/login.service';
+
 
 export class Account {
   username!: String;
@@ -9,21 +11,29 @@ export class Account {
   role!: String;
 }
 
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-
-  constructor(private _loginService: LoginService) { }
-  userData = []
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private ngZone: NgZone  
+  ) {}
+  content = ""
   ngOnInit(): void {
+    // console.log(this._loginService.getDataUser())
+    let contentList = ['user-manage']
+    this.content = String(this.route.snapshot.paramMap.get("id"));
     
-    // console.log("000", this._loginService.getDataUser())
-    console.log(this._loginService.getDataUser())
+    if (contentList.indexOf(this.content) === -1 )
+      this.ngZone.run(() => this.router.navigateByUrl('/admin'))
+    // if (params.has('id')) {
+    //   // this.highlightId = params.get('id');
+    // }
+    console.log(this.content);
   }
-
 }
-
-
