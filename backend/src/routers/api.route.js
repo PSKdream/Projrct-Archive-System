@@ -25,15 +25,13 @@ apiRoute.route('/validate-login').post(async (req, res, next) => {
             res.status(401).send('Login Failure')
         }  
 
-        let userData = []
+        let tempDict = null
         data.forEach(doc => {
-            let tempDict = doc.data()
+            tempDict = doc.data()
             delete tempDict.password; 
             tempDict['_id'] = doc.id        
-            res.json(tempDict);
         });
-          
-        
+        res.json(tempDict);
     } catch (error) {
         return next(error);
     }
