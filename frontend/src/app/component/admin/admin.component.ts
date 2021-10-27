@@ -18,18 +18,27 @@ export class Account {
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
+  content = ""
+  dataUser:Account[] = []
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private ngZone: NgZone  
-  ) {}
-  content = ""
+    private ngZone: NgZone,
+    private _loginService: LoginService
+  ) { }
+  
+
   ngOnInit(): void {
-    // console.log(this._loginService.getDataUser())
+    
+    this.dataUser.push(this._loginService.getDataUser()[0])
+    console.log(this.dataUser[0]);
+
+
     let contentList = ['user-manage']
     this.content = String(this.route.snapshot.paramMap.get("id"));
-    
-    if (contentList.indexOf(this.content) === -1 )
+
+    if (contentList.indexOf(this.content) === -1)
       this.ngZone.run(() => this.router.navigateByUrl('/admin'))
     // if (params.has('id')) {
     //   // this.highlightId = params.get('id');
