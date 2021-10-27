@@ -11,6 +11,6 @@ export class AppComponent {
   isNavView = true;
   constructor(private router: Router) {}
   ngDoCheck(){
-    this.isNavView = !(this.router.url=="/login")
+    this.isNavView = !(this.router.url=="/login" || this.router.url=="/admin")
   }
 }
