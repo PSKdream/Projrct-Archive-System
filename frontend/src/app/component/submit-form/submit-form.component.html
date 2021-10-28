@@ -1,0 +1,61 @@
+<div class="container mt-3">
+    <h1 class="text-center" style="font-size: 40px;">รายละเอียดโครงงาน</h1>
+    <div class="row justify-content-center mt-3">
+        <div class="col-lg-8">
+            <form>
+                <div class="form-group">
+                    <label for="course">หลักสูตร</label>
+                    <input type="text" class="form-control mt-2" formControlName="course" required>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="graduation-year">ปีที่สำเร็จการศสึกษา</label>
+                    <input type="text" class="form-control mt-2" formControlName="graduation-year" required>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="type-project">ประเภทโครงงาน</label>
+                    <input type="text" class="form-control mt-2" formControlName="type-project" required>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="nameTH">ชื่อโครงงานภาษาไทย</label>
+                    <input type="text" class="form-control mt-2" formControlName="nameTH" required>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="nameEng">ชื่อโครงงานภาษาอังกฤษ</label>
+                    <input type="text" class="form-control mt-2" formControlName="nameEng" required>
+                </div>
+                <div class="form-group mt-2">
+                    <!-- <label for="develop-name">ชื่อผู้พัฒนา</label> -->
+                    <p class="mb-0">ชื่อผู้พัฒนา <i class="bi bi-plus-square " style="cursor: pointer;"></i>
+                    <i class="bi bi-dash-square" style="cursor: pointer;"></i></p>    
+                    <input type="text" class="form-control mt-2" formControlName="develop-name" required>
+                </div>
+                <label class="mt-2" for="advisor-name">อาจารย์ที่ปรึกษา</label>
+                <div class="input-group mb-2 mt-2">
+                    <label class="input-group-text " for="inputGroupSelect01">เลือก</label>
+                    <select class="form-select " id="inputGroupSelect01">
+                      <option selected disabled>อาจารย์!!!</option>
+                      <option value="1">จารย์หนึ่งคงกระพัน</option>
+                      <option value="2">จารย์สองเหล็กไหล</option>
+                      <option value="3">จารย์สามสองสิบแปด</option>
+                    </select>
+                </div>
+                <label class="mt-0" for="advisor-name">บทคัดย่อ</label>
+                <div class="input-group mt-2">
+                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="course">ที่เก็บซอร์สโค้ด</label>
+                    <input type="text" class="form-control mt-2" formControlName="sorec-link" required>
+                </div>
+                <label class="mt-2" for="course">ที่เก็บซอร์สโค้ด</label>
+                <div class="input-group mb-3 mt-2">
+                    <input type="file" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                </div>
+                <div class="form-group mt-2 ">
+                    <button class="btn btn-primary btn-block mt-3" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

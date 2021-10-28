@@ -17,14 +17,6 @@ export class ProjectService {
   upload(file:any): Observable<any> {
     let API_URL = `${this.Rest_API}/upload`; //"https://file.io"
 
-    // Create form data
-    // const formData = new FormData(); 
-        
-    // // Store form name as "file" with file data
-    // formData.append("file", file, file.name);
-      
-    // Make http post request over api
-    // with formData as req
     return this.httpClient.post(API_URL, file)
       .pipe(
         catchError(this.handleError)
