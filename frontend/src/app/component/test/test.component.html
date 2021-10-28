@@ -10,3 +10,13 @@
         <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Submit</button>
     </form>
 </div>
+
+<button (click)="changeCount(1)">+</button>
+<button (click)="changeCount(-1)">-</button>
+
+<div *ngFor="let item of arr">
+    <h1>{{item}}</h1>
+</div>
+
+
+

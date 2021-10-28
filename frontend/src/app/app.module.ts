@@ -11,6 +11,7 @@ import { LoginComponent } from './component/login/login.component';
 import { UserManagementComponent } from './component/admin/user-management/user-management.component';
 import { TestComponent } from './component/test/test.component';
 import { SubmitFormComponent } from './component/submit-form/submit-form.component';
+import { EditUserComponent } from './component/admin/user-management/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SubmitFormComponent } from './component/submit-form/submit-form.compone
     LoginComponent,
     UserManagementComponent,
     TestComponent,
-    SubmitFormComponent
+    SubmitFormComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

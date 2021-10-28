@@ -68,7 +68,7 @@ apiRoute.route('/insert-user').post(async (req, res, next) => {
         return next(error);
     }
 })
-apiRoute.route('/edit-user').put(async (req, res, next) => {
+apiRoute.route('/update-user').put(async (req, res, next) => {
     try {
         let data = {
             firstname: String(req.body.firstname),

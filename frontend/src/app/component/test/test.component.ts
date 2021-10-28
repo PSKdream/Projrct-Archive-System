@@ -11,7 +11,7 @@ import { ProjectService } from '../../service/project/project.service';
 })
 export class TestComponent implements OnInit {
   formData = new FormData();
-
+  arr = [0] 
   formSection = new FormGroup({
     text: new FormControl(''),
   });
@@ -41,6 +41,17 @@ export class TestComponent implements OnInit {
         console.log(this.formData)
         // const upload$ = this.http.post("/api/thumbnail-upload", formData);
         // upload$.subscribe();
+    }
+  }
+
+
+  changeCount(number:number){
+    console.log(number);
+    if(number === 1){
+      this.arr.push(this.arr[this.arr.length-1]+1)
+    }
+    else if(number === -1 && this.arr.length>1){
+      this.arr.pop()
     }
   }
 }

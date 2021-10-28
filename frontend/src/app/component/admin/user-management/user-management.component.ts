@@ -18,10 +18,12 @@ import {
   styleUrls: ['./user-management.component.scss'],
 })
 export class UserManagementComponent implements OnInit {
-  // @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
+  itemToChild = [];
+
   @ViewChild('closeModel') closeModel: ElementRef;
   md5 = new Md5();
   userAccountList:any
+
   bioSection = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -40,6 +42,10 @@ export class UserManagementComponent implements OnInit {
     this.getUserList()
   }
 
+  onEdit(item:[]){
+    console.log(item);
+    this.itemToChild = item
+  }
 
   getUserList(){
     this._LoginService.getUserList().subscribe((res)=>{
@@ -49,8 +55,13 @@ export class UserManagementComponent implements OnInit {
   }
 
   onDelete(_id:String){
-    console.log(_id) 
-    // this._LoginService
+    if(confirm("You are delete user.") === false)
+      return
+    this._LoginService.deleteUser(_id).subscribe(()=>{
+      this.getUserList()
+    }, (error) => {
+      console.log(error);
+    })
   }
 
   submitUser() {

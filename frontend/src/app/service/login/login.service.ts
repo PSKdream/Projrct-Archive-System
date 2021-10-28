@@ -35,19 +35,6 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
 
-  addUser(data: addAccount): Observable<any> {
-    let API_URL = `${this.Rest_API}/insert-user`;
-    return this.httpClient.post(API_URL, data)
-      .pipe(
-        catchError(this.handleError)
-      )
-  }
-
-  getUserList() {
-    let API_URL = `${this.Rest_API}/get-user`;
-    return this.httpClient.get(`${API_URL}`)
-  }
-
   getDataUser(){
     return this.dataAccount
   }
@@ -62,6 +49,38 @@ export class LoginService {
       catchError(this.handleError)
       )
   }
+
+  getUserList() {
+    let API_URL = `${this.Rest_API}/get-user`;
+    return this.httpClient.get(`${API_URL}`)
+  }
+
+  addUser(data: addAccount): Observable<any> {
+    let API_URL = `${this.Rest_API}/insert-user`;
+    return this.httpClient.post(API_URL, data)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  deleteUser(id: any): Observable<any>{
+    let API_URL = `${this.Rest_API}/delete-user/${id}`;
+    return this.httpClient.delete(API_URL,{headers: this.httpHeaders})
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+  updateUser(data:any){
+    let API_URL = `${this.Rest_API}/update-user`;
+    return this.httpClient.put(API_URL,data,{headers: this.httpHeaders})
+      .pipe(
+      catchError(this.handleError)
+      )
+  }
+  
+
+  
 
 
   //Error
