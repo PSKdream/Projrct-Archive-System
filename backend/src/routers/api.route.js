@@ -1,13 +1,19 @@
 const express = require("express");
-const apiRoute = express.Router();
 const Multer = require('multer');
-
 const admin = require("firebase-admin");
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+const { getStorage } = require('firebase-admin/storage');
+
+const apiRoute = express.Router();
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    }
+})
 
 const db = admin.firestore();
-const storage = admin.storage();
-const bucket = storage.bucket();
+
+const bucket = getStorage().bucket();
 
 const usersDb = db.collection('users');
 
@@ -62,7 +68,6 @@ apiRoute.route('/insert-user').post(async (req, res, next) => {
         return next(error);
     }
 })
-
 apiRoute.route('/edit-user').put(async (req, res, next) => {
     try {
         let data = {
@@ -78,7 +83,6 @@ apiRoute.route('/edit-user').put(async (req, res, next) => {
         return next(error.status);
     }
 })
-
 apiRoute.route('/delete-user/:_id').delete(async (req, res, next) => {
     try {
         await usersDb.doc(req.params._id).delete()
@@ -87,8 +91,7 @@ apiRoute.route('/delete-user/:_id').delete(async (req, res, next) => {
         return next(error.status);
     }
 })
-
-apiRoute.route('/get-user').get(async (req, res,next) => {
+apiRoute.route('/get-user').get(async (req, res, next) => {
     try {
         let data = await usersDb.get();
 
@@ -104,6 +107,35 @@ apiRoute.route('/get-user').get(async (req, res,next) => {
         return next(error.status);
     }
 })
+
+
+apiRoute.route('/upload').post(multer.single('file'),(req, res, next) => {
+    try {
+        console.log(req.file);
+        const folder = 'profile'
+        const filename = `${folder}/${Date.now()}`
+        const fileUpload = bucket.file(filename)
+        // console.log(req);
+        const blobStream = fileUpload.createWriteStream({
+            metadata: {
+                contentType: req.file.mimetype
+            }
+        })
+
+        blobStream.on('error', (err) => {
+            res.status(405).json(err)
+        })
+
+        blobStream.on('finish', (err) => {
+            res.status(200).json('upload complete')
+        })
+        blobStream.end(req.file.buffer)
+        
+    } catch (error) {
+        return next(error);
+    }
+})
+
 
 
 module.exports = apiRoute;
