@@ -35,7 +35,7 @@ export class AdminComponent implements OnInit {
     console.log(this.dataUser[0]);
 
 
-    let contentList = ['user-manage']
+    let contentList = ['user-management']
     this.content = String(this.route.snapshot.paramMap.get("id"));
 
     if (contentList.indexOf(this.content) === -1)

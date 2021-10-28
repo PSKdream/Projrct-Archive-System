@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 import { LoginService } from '../../service/login/login.service';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { LoginService } from '../../service/login/login.service';
 })
 export class LoginComponent implements OnInit {
   loginFail = ""
+  md5 = new Md5();
 
   bioSection = new FormGroup({
     username: new FormControl(''),
@@ -19,13 +21,19 @@ export class LoginComponent implements OnInit {
     private ngZone: NgZone) { }
   ngOnInit() {
     console.log(this._loginService.getDataUser().length);
-    if(this._loginService.getDataUser().length === 1)
+    if (this._loginService.getDataUser().length === 1)
       this.ngZone.run(() => this.router.navigateByUrl('/admin'))
     // console.log(this.LoginService.getDataUser())
   }
   callingFunction() {
-    this._loginService.login(this.bioSection.value).subscribe((res) => {
-      console.log("Login successfully",res);
+    let data = {
+      username: this.bioSection.value.username,
+      password: String(this.md5.appendStr(this.bioSection.value.password).end()),
+    }
+
+
+    this._loginService.login(data).subscribe((res) => {
+      console.log("Login successfully", res);
       this.ngZone.run(() => this.router.navigateByUrl('/admin'))
     }, (err) => {
       this.loginFail = err.error
