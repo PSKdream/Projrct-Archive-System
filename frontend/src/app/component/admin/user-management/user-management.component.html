@@ -1,8 +1,53 @@
-<!-- Scrollable modal -->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Insert
-</button>
+<div class="container row justify-content-center">
+    <div class="col-12">
+        <div class="mt-5 mb-2 border-bottom btn-toolbar justify-content-between">
+            <h3>Accout mangement</h3>
+            <!-- Scrollable modal -->
+            <!-- Button trigger modal -->
+            <div>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Insert Program
+                </button>
+            </div>
+        </div>
+
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Role</th>
+                    <td scope="col">Action</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let item of userAccountList; let i = index">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{item.firstname+' '+item.lastname}}</td>
+                  <td>{{item.role}}</td>
+                  <td>
+                    <i
+                      class="bi bi-trash ms-3"
+                      style="cursor: pointer; color: #ff968a"
+                      (click)="onDelete(item._id)"
+                    ></i>
+                  </td> 
+
+                </tr>
+              </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+<!-- 
+        <button type="button" class="btn btn-primary btn-insert" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Insert User
+        </button>  -->
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -10,19 +55,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Insert User</h5>
-                <button #closeModel type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
+                <button #closeModel type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form [formGroup] = bioSection (ngSubmit) = "submitUser()">
+            <form [formGroup]=bioSection (ngSubmit)="submitUser()">
                 <div class="modal-body row">
-
                     <div class="col-4 row justify-content-end">
-
                         <div class="mb-3 text-end">
                             <label for="inputUsername" class="col-form-label br-row">Username</label>
                         </div>
                         <div class="mb-3 text-end">
                             <label for="inputPassword" class="col-form-label br-row">Password</label>
-                            <p class="m-0" *ngIf = '(bioSection.value.password.length < 8)'><br><br></p>
+                            <p class="m-0" *ngIf='(bioSection.value.password.length < 8)'><br><br></p>
                         </div>
                         <div class="mb-3 text-end">
                             <label for="inputFirstname" class="col-form-label br-row">Firstname</label>
@@ -32,30 +75,24 @@
                         </div>
 
                         <label for="inputrole" class="col-form-label text-end">Role </label>
-
                     </div>
-
                     <div class="col-8">
                         <div class="mb-3">
-                            <input type="username" class="form-control" id="inputUsername" formControlName = "username">
+                            <input type="username" class="form-control" id="inputUsername" formControlName="username">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" id="inputPassword" formControlName = "password">
-                            <p class="text-danger" *ngIf = '(bioSection.value.password.length < 8)' >Your password must be 8-20 characters long</p>
-
-                        </div>
-
-
-
-                        <div class="mb-3">
-                            <input type="firstname" class="form-control" id="inputFirstname " formControlName = "firstname">
+                            <input type="password" class="form-control" id="inputPassword" formControlName="password">
+                            <p class="text-danger" *ngIf='(bioSection.value.password.length < 8)'>Your password must be
+                                8-20 characters long</p>
                         </div>
                         <div class="mb-3">
-                            <input type="lastname" class="form-control" id="inputLastname" formControlName = "lastname">
+                            <input type="firstname" class="form-control" id="inputFirstname "
+                                formControlName="firstname">
                         </div>
-
-
-                        <select class="form-select dropdown-toggle" type="button" formControlName = "role">
+                        <div class="mb-3">
+                            <input type="lastname" class="form-control" id="inputLastname" formControlName="lastname">
+                        </div>
+                        <select class="form-select dropdown-toggle" type="button" formControlName="role">
                             <option selected>Open this select Role</option>
                             <option value="student">Student</option>
                             <option value="teacher">Teacher</option>
@@ -64,10 +101,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-                    <button type="submit" class="btn btn-primary" >Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
+
+
+
             </form>
         </div>
     </div>

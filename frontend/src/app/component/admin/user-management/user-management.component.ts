@@ -14,14 +14,14 @@ import {
 
 @Component({
   selector: 'app-user-management',
-  templateUrl: './user-management.component.html',
+  templateUrl: './user-management.component.html', 
   styleUrls: ['./user-management.component.scss'],
 })
 export class UserManagementComponent implements OnInit {
   // @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
   @ViewChild('closeModel') closeModel: ElementRef;
   md5 = new Md5();
-
+  userAccountList:any
   bioSection = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -36,7 +36,22 @@ export class UserManagementComponent implements OnInit {
     this.closeModel = new ElementRef<any>(null)
   }
 
-  ngOnInit(): void { }
+   ngOnInit(): void { 
+    this.getUserList()
+  }
+
+
+  getUserList(){
+    this._LoginService.getUserList().subscribe((res)=>{
+      // console.log(res)
+      this.userAccountList =  res
+    })
+  }
+
+  onDelete(_id:String){
+    console.log(_id) 
+    // this._LoginService
+  }
 
   submitUser() {
     // console.log(this.bioSection.value);
@@ -66,6 +81,7 @@ export class UserManagementComponent implements OnInit {
 
     this._LoginService.addUser(data).subscribe(() => {
       this.closeModel.nativeElement.click();
+      this.getUserList()
     }, (error) => {
       console.log(error);
     })
