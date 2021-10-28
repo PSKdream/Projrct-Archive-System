@@ -43,6 +43,11 @@ export class LoginService {
       )
   }
 
+  getUserList() {
+    let API_URL = `${this.Rest_API}/get-user`;
+    return this.httpClient.get(`${API_URL}`)
+  }
+
   getDataUser(){
     return this.dataAccount
   }
