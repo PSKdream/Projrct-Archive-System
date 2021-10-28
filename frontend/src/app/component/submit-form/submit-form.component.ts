@@ -7,10 +7,7 @@ import { FormControl, FormGroup, FormBuilder} from "@angular/forms";
   styleUrls: ['./submit-form.component.scss']
 })
 export class SubmitFormComponent implements OnInit {
-
   constructor() { }
-
   ngOnInit(): void {
   }
-
 }
