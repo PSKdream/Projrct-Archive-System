@@ -1,7 +1,9 @@
 const express = require("express"),
     cors = require("cors"),
     bodyParser = require("body-parser"),
-    createError = require("http-errors");
+    multer = require('multer'),
+    createError = require("http-errors")
+    
 
 
 const admin = require("firebase-admin");
@@ -17,6 +19,7 @@ const FirebaseApp = admin.initializeApp({
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+// app.use(multer());
 app.use(
     bodyParser.urlencoded({
         extended: false,

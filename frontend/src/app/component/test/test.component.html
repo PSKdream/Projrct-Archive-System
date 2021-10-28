@@ -1,0 +1,22 @@
+<div class="col-8">
+    <p>test works!</p>
+    <form [formGroup]="formSection" (ngSubmit)="callingFunction()">
+        <input type="text" class="form-control" id="exampleFormControlInput1" 
+        value="test-file" formControlName="text">
+        <div class="input-group mb-3">
+            <input type="file"   name="myFile"  class="form-control" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03"
+                aria-label="Upload" (change)="uploadFile($event)">
+        </div>
+        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Submit</button>
+    </form>
+</div>
+
+<button (click)="changeCount(1)">+</button>
+<button (click)="changeCount(-1)">-</button>
+
+<div *ngFor="let item of arr">
+    <h1>{{item}}</h1>
+</div>
+
+
+
