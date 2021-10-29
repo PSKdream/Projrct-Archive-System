@@ -1,39 +1,44 @@
 <div class="container mt-3">
     <h1 class="text-center" style="font-size: 40px;">รายละเอียดโครงงาน</h1>
-    <div class="row justify-content-center mt-3">
-        <div class="col-lg-8">
-            <form>
+    <div class="row justify-content-center mt-3 ">
+        <div  class="col-lg-8 ">
+            <form [formGroup]="submit_form">
                 <div class="form-group">
                     <label for="course">หลักสูตร</label>
-                    <input type="text" class="form-control mt-2" required>
+                    <input type="text" class="form-control mt-2" formControlName="course" required>
                 </div>
                 <div class="form-group mt-2">
                     <label for="graduation-year">ปีที่สำเร็จการศสึกษา</label>
-                    <input type="text" class="form-control mt-2"  required>
+                    <input type="text" class="form-control mt-2" formControlName="graduation_year" required>
                 </div>
                 <div class="form-group mt-2">
-                    <label for="type-project">ประเภทโครงงาน</label>
-                    <input type="text" class="form-control mt-2" required>
+                    <label for="project_type">ประเภทโครงงาน</label>
+                    <input type="text" class="form-control mt-2" formControlName="project_type" required>
                 </div>
                 <div class="form-group mt-2">
                     <label for="nameTH">ชื่อโครงงานภาษาไทย</label>
-                    <input type="text" class="form-control mt-2"  required>
+                    <input type="text" class="form-control mt-2" formControlName="nameTH" required>
                 </div>
                 <div class="form-group mt-2">
-                    <label for="nameEng">ชื่อโครงงานภาษาอังกฤษ</label>
-                    <input type="text" class="form-control mt-2"  required>
+                    <label for="nameENG">ชื่อโครงงานภาษาอังกฤษ</label>
+                    <input type="text" class="form-control mt-2" formControlName="nameEng" required>
                 </div>
                 <div class="form-group mt-2">
-                    <label for="nameEng">รหัสนักศึกษาผู้พัฒนา</label>
-                    <input type="text" class="form-control mt-2"  required>
+                    <p class="mb-0">รหัสนักศึกษาผู้พัฒนา <i (click)="changeCount(1)" class="bi bi-plus-square fs-5"
+                            style="cursor: pointer;"></i>
+                        <i (click)="changeCount(-1)" class="bi bi-dash-square fs-5" style="cursor: pointer;"></i>
+                    </p>
+                    <div *ngFor="let item of arr">
+                        <input type="text" class="form-control mt-2" formControlName="developID" required>
+                    </div>
                 </div>
                 <div class="form-group mt-2">
                     <p class="mb-0">ชื่อผู้พัฒนา <i (click)="changeCount(1)" class="bi bi-plus-square fs-5"
                             style="cursor: pointer;"></i>
                         <i (click)="changeCount(-1)" class="bi bi-dash-square fs-5" style="cursor: pointer;"></i>
                     </p>
-                    <div *ngFor="let item of arr">
-                        <input type="text" class="form-control mt-2"required>
+                    <div *ngFor="let item of arr; index as i">
+                        <input type="text" class="form-control mt-2"  formControlName="developName[i]" required>
                     </div>
                 </div>
                 <label class="mt-2" for="advisor-name">อาจารย์ที่ปรึกษา</label>
@@ -48,13 +53,13 @@
                 </div>
                 <label class="mt-0" for="advisor-name">บทคัดย่อ</label>
                 <div class="input-group mt-2">
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                    <textarea class="form-control" aria-label="With textarea" formControlName="abstract"></textarea>
                 </div>
                 <div class="form-group mt-2">
                     <label for="course">ที่เก็บซอร์สโค้ด</label>
-                    <input type="text" class="form-control mt-2" required>
+                    <input type="text" class="form-control mt-2" formControlName="sorec_code" required>
                 </div>
-                <label class="mt-2" for="course">ที่เก็บซอร์สโค้ด</label>
+                <label class="mt-2" for="course">ที่เก็บไฟล์</label>
                 <div class="input-group mb-3 mt-2">
                     <input type="file" class="form-control" id="inputGroupFile02">
                     <label class="input-group-text" for="inputGroupFile02">Upload</label>
