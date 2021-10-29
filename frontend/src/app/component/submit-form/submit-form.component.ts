@@ -7,7 +7,17 @@ import { FormControl, FormGroup, FormBuilder} from "@angular/forms";
   styleUrls: ['./submit-form.component.scss']
 })
 export class SubmitFormComponent implements OnInit {
+  arr = [0] 
   constructor() { }
-  ngOnInit(): void {
+  ngOnInit(): void { 
+  }
+  changeCount(number:number){
+    console.log(number);
+    if(number === 1){
+      this.arr.push(this.arr[this.arr.length-1]+1)
+    }
+    else if(number === -1 && this.arr.length>1){
+      this.arr.pop()
+    }
   }
 }
