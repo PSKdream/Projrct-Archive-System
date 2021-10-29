@@ -1,8 +1,8 @@
-<div class="container mt-3">
+<div class="container mt-5">
     <h1 class="text-center" style="font-size: 40px;">รายละเอียดโครงงาน</h1>
-    <div class="row justify-content-center mt-3 ">
-        <div  class="col-lg-8 ">
-            <form [formGroup]="submit_form">
+    <div class="row justify-content-center mt-4 mb-5 ">
+        <div class="col-10 ">
+            <form [formGroup]="submit_form" (ngSubmit)="submitProject()">
                 <div class="form-group">
                     <label for="course">หลักสูตร</label>
                     <input type="text" class="form-control mt-2" formControlName="course" required>
@@ -24,47 +24,50 @@
                     <input type="text" class="form-control mt-2" formControlName="nameEng" required>
                 </div>
                 <div class="form-group mt-2">
-                    <p class="mb-0">รหัสนักศึกษาผู้พัฒนา <i (click)="changeCount(1)" class="bi bi-plus-square fs-5"
-                            style="cursor: pointer;"></i>
-                        <i (click)="changeCount(-1)" class="bi bi-dash-square fs-5" style="cursor: pointer;"></i>
+                    <p class="mb-0">ชื่อผู้พัฒนา
+                        <i (click)="changeCount(1)" class="bi bi-plus-square fs-5 ms-2" style="cursor: pointer;"></i>
+                        <i (click)="changeCount(-1)" class="bi bi-dash-square fs-5 ms-2" style="cursor: pointer;"></i>
                     </p>
-                    <div *ngFor="let item of arr">
-                        <input type="text" class="form-control mt-2" formControlName="developID" required>
+                    <div formArrayName="developNames" class="row"
+                        *ngFor="let item of developNames.controls; let i = index ">
+                        <div [formGroupName]="i" class="row m-0 p-0">
+                            <div class="col-4">
+                                <input type="text" class="form-control mt-2" formControlName="ID" required
+                                    placeholder="ID">
+                            </div>
+                            <div class="col-8">
+                                <input type="text" class="form-control mt-2" formControlName="Name" required
+                                    placeholder="Name">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group mt-2">
-                    <p class="mb-0">ชื่อผู้พัฒนา <i (click)="changeCount(1)" class="bi bi-plus-square fs-5"
-                            style="cursor: pointer;"></i>
-                        <i (click)="changeCount(-1)" class="bi bi-dash-square fs-5" style="cursor: pointer;"></i>
-                    </p>
-                    <div *ngFor="let item of arr; index as i">
-                        <input type="text" class="form-control mt-2"  formControlName="developName[i]" required>
+                <div class=" mb-2 mt-2">
+                    <label class="mt-2" for="advisor-name">อาจารย์ที่ปรึกษา</label>
+                    <div class="input-group">
+                        <select class="form-select " id="inputGroupSelect01" formControlName="advisor_name">
+                            <option value="t1">จารย์หนึ่งคงกระพัน</option>
+                            <option value="t2">จารย์สองเหล็กไหล</option>
+                            <option value="t3">จารย์สามสองสิบแปด</option>
+                        </select>
                     </div>
                 </div>
-                <label class="mt-2" for="advisor-name">อาจารย์ที่ปรึกษา</label>
-                <div class="input-group mb-2 mt-2">
-                    <label class="input-group-text " for="inputGroupSelect01">เลือก</label>
-                    <select class="form-select " id="inputGroupSelect01">
-                        <option selected disabled>อาจารย์!!!</option>
-                        <option value="1">จารย์หนึ่งคงกระพัน</option>
-                        <option value="2">จารย์สองเหล็กไหล</option>
-                        <option value="3">จารย์สามสองสิบแปด</option>
-                    </select>
-                </div>
-                <label class="mt-0" for="advisor-name">บทคัดย่อ</label>
-                <div class="input-group mt-2">
+                <div class=" mt-2">
+                    <label class="mt-0" for="advisor-name">บทคัดย่อ</label>
                     <textarea class="form-control" aria-label="With textarea" formControlName="abstract"></textarea>
                 </div>
                 <div class="form-group mt-2">
                     <label for="course">ที่เก็บซอร์สโค้ด</label>
                     <input type="text" class="form-control mt-2" formControlName="sorec_code" required>
                 </div>
-                <label class="mt-2" for="course">ที่เก็บไฟล์</label>
-                <div class="input-group mb-3 mt-2">
-                    <input type="file" class="form-control" id="inputGroupFile02">
-                    <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                <div class="mt-2">
+                    <label for="course">ไฟล์รูปเล่ม</label>
+                    <div class="input-group mb-3 mt-2">
+                        <input type="file" class="form-control" id="inputGroupFile02" (change)="uploadFile($event)">
+                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                    </div>
                 </div>
-                <div class="form-group mt-2 ">
+                <div class="form-group mt-2 text-center">
                     <button class="btn btn-primary btn-block mt-3" type="submit">Submit</button>
                 </div>
             </form>

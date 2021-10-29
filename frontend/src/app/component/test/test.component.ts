@@ -15,7 +15,8 @@ export class TestComponent implements OnInit {
   formSection = new FormGroup({
     text: new FormControl(''),
   });
-  constructor(private _projectService: ProjectService, private router: Router,
+  constructor(private _projectService: ProjectService,
+     private router: Router,
     private ngZone: NgZone) { }
 
   ngOnInit(): void {

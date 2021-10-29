@@ -16,6 +16,7 @@ const db = admin.firestore();
 const bucket = getStorage().bucket();
 
 const usersDb = db.collection('users');
+const projectDb = db.collection('projects');
 
 
 apiRoute.route('/test').get((req, res, next) => {
@@ -82,7 +83,6 @@ apiRoute.route('/update-user').put(async (req, res, next) => {
         return next(error.status);
     }
 })
-
 apiRoute.route('/update-password').put(async (req, res, next) => {
     try {
         let data = {
@@ -120,11 +120,23 @@ apiRoute.route('/get-user').get(async (req, res, next) => {
 })
 
 
-apiRoute.route('/upload').post(multer.single('file'),(req, res, next) => {
+apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => {
     try {
-        console.log(req.file);
+        // console.log(req.file);
+        // console.log(req.body);
+        // let result = await projectDb.doc().set(JSON.parse(req.body.dataProject));
+        
+        let _id = await projectDb.add(JSON.parse(req.body.dataProject))
+            .then((docRef) => {
+                // console.log("Document written with ID: ", docRef.id);
+                return docRef.id
+               
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
         const folder = 'profile'
-        const filename = `${folder}/${Date.now()}`
+        const filename = `${folder}/${_id}`
         const fileUpload = bucket.file(filename)
         // console.log(req);
         const blobStream = fileUpload.createWriteStream({
@@ -141,7 +153,7 @@ apiRoute.route('/upload').post(multer.single('file'),(req, res, next) => {
             res.status(200).json('upload complete')
         })
         blobStream.end(req.file.buffer)
-        
+
     } catch (error) {
         return next(error);
     }

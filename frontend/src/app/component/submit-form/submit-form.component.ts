@@ -1,40 +1,72 @@
-import { Component, OnInit ,NgZone} from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormBuilder} from "@angular/forms";
+import {FormControl,FormGroup,FormArray} from '@angular/forms';
+import { ProjectService } from '../../service/project/project.service';
+
 @Component({
   selector: 'app-submit-form',
   templateUrl: './submit-form.component.html',
   styleUrls: ['./submit-form.component.scss']
 })
 export class SubmitFormComponent implements OnInit {
-  arr = [0] 
+  formData = new FormData();
   submit_form = new FormGroup({
     course: new FormControl(''),
-    graduation_year : new FormControl(''),
-    project_type : new FormControl(''),
-    nameTH : new FormControl(''),
-    nameEng : new FormControl(''),
-    developID : new FormControl(''),
-    developName : new FormControl(['']),
-    abstract : new FormControl(''),
-    sorec_code : new FormControl(''),
-    advisor_name: new FormControl([''])
+    graduation_year: new FormControl(''),
+    project_type: new FormControl(''),
+    nameTH: new FormControl(''),
+    nameEng: new FormControl(''),
+    developNames: new FormArray([
+      new FormGroup({
+        ID: new FormControl(''),
+        Name: new FormControl('')
+      })
+    ]),
+    abstract: new FormControl(''),
+    sorec_code: new FormControl(''),
+    advisor_name: new FormControl('')
   });
-  constructor() { }
-  ngOnInit(): void { 
+  developNames = this.submit_form.get('developNames') as FormArray;
+  fileName = '';
+
+  constructor(private _projectService: ProjectService) { }
+  ngOnInit(): void {
+
+    console.log(this.submit_form.value);
+
   }
-  changeCount(number:number){
+  changeCount(number: number) {
     console.log(number);
-    if(number === 1){
-      this.arr.push(this.arr[this.arr.length-1]+1)
-      this.submit_form.value.developName.push('');
-      console.log(this.submit_form.value.developName);
-      // this.submit_form.patchValue({
-      //   developName: this.submit_form.developNa
-      // })
+    if (number === 1) {
+      this.developNames.push(new FormGroup({
+        ID: new FormControl(''),
+        Name: new FormControl('')
+      })
+      )
     }
-    else if(number === -1 && this.arr.length>1){
-      this.arr.pop()
+    else if (number === -1 && this.developNames.length > 1) {
+      this.developNames.removeAt(this.developNames.length - 1)
+    }
+  }
+
+  submitProject(){
+    console.log(this.submit_form.value);
+    console.log(this.formData);
+    this._projectService.upload(this.formData).subscribe((res) => {
+      console.log("upload successfully", res);
+    }, (err) => {
+      console.log(err.error);
+    })
+
+  }
+
+  
+  uploadFile(event:any) {
+    const file:File = event.target.files[0];
+    if (file) {
+        this.fileName = file.name;
+        this.formData.append("file", file);
+        this.formData.append("dataProject",JSON.stringify( this.submit_form.value));
     }
   }
 }
