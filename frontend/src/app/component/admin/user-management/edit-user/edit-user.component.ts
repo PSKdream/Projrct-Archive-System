@@ -1,13 +1,8 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef,Input } from '@angular/core';
+import { Component, OnInit, EventEmitter , ViewChild, ElementRef,Input,Output } from '@angular/core';
 import { LoginService } from '../../../../service/login/login.service';
 import {
   FormControl,
-  FormGroup,
-  FormBuilder,
-  Validator,
-  Validators,
-  ReactiveFormsModule,
-
+  FormGroup
 } from '@angular/forms';
 
 @Component({
@@ -16,11 +11,12 @@ import {
   styleUrls: ['./edit-user.component.scss']
 })
 export class EditUserComponent implements OnInit {
-  @ViewChild('openModel') openModel: ElementRef;
+ 
   @ViewChild('closeModel') closeModel: ElementRef;
-  @Input() item:any;
+  @Input() itemData:any;
+  @Output() onDone = new EventEmitter<any>();
   
-
+  textAlert = ""
 
   formSection = new FormGroup({
     username: new FormControl(''),
@@ -30,25 +26,23 @@ export class EditUserComponent implements OnInit {
   });
 
   constructor(private _LoginService: LoginService) {
-    this.openModel = new ElementRef<any>(null)
     this.closeModel = new ElementRef<any>(null)
    }
 
   ngOnInit(): void {
-    this.openModel.nativeElement.click();
-    console.log("object");
-  }
-  ngOnChanges() {
-    console.log(`ngOnChanges - counter is ${this.item}`);
-    console.log(this.item);
+    console.log('init',this.itemData);
     this.formSection.setValue({
-      username: this.item.username,
-      firstname: this.item.firstname,
-      lastname: this.item.lastname,
-      role: this.item.role,
+      username: this.itemData.username,
+      firstname: this.itemData.firstname,
+      lastname: this.itemData.lastname,
+      role: this.itemData.role,
     })
-    this.openModel.nativeElement.click();
   }
+  // ngOnChanges() {
+  //   // console.log(`ngOnChanges - counter is ${this.item}`);
+  //   console.log(this.itemData);
+    
+  // }
   submitData(){
     if (
       this.formSection.value.username === '' ||
@@ -56,12 +50,12 @@ export class EditUserComponent implements OnInit {
       this.formSection.value.lastname === '' ||
       this.formSection.value.role === ''
     ) {
-      console.log('Wrong');
+      this.textAlert = "กรุณากรอกข้อมูลให้ครบถ้วน"
       return
     }
 
     let data = {
-      _id : this.item._id,
+      _id : this.itemData._id,
       username: this.formSection.value.username,
       firstname: this.formSection.value.firstname,
       lastname: this.formSection.value.lastname,
@@ -70,8 +64,9 @@ export class EditUserComponent implements OnInit {
 
     this._LoginService.updateUser(data).subscribe(() => {
       this.closeModel.nativeElement.click();
+      this.onDone.emit("Done")
     }, (error) => {
-      console.log(error);
+      this.textAlert = "Error code : "+error.status+" ("+error.statusText+")"
     })
   }
 

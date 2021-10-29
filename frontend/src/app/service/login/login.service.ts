@@ -78,6 +78,14 @@ export class LoginService {
       catchError(this.handleError)
       )
   }
+
+  updatePassword(data:any){
+    let API_URL = `${this.Rest_API}/update-password`;
+    return this.httpClient.put(API_URL,data,{headers: this.httpHeaders})
+      .pipe(
+      catchError(this.handleError)
+      )
+  }
   
 
   

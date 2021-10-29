@@ -12,6 +12,8 @@ import { UserManagementComponent } from './component/admin/user-management/user-
 import { TestComponent } from './component/test/test.component';
 import { SubmitFormComponent } from './component/submit-form/submit-form.component';
 import { EditUserComponent } from './component/admin/user-management/edit-user/edit-user.component';
+import { InsertUserComponent } from './component/admin/user-management/insert-user/insert-user.component';
+import { ResetPasswordComponent } from './component/admin/user-management/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { EditUserComponent } from './component/admin/user-management/edit-user/e
     UserManagementComponent,
     TestComponent,
     SubmitFormComponent,
-    EditUserComponent
+    EditUserComponent,
+    InsertUserComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
