@@ -73,10 +73,21 @@ apiRoute.route('/update-user').put(async (req, res, next) => {
         let data = {
             firstname: String(req.body.firstname),
             lastname: String(req.body.lastname),
-            password: String(req.body.password),
             role: String(req.body.role)
         }
 
+        await usersDb.doc(req.body._id).update(data)
+        res.json();
+    } catch (error) {
+        return next(error.status);
+    }
+})
+
+apiRoute.route('/update-password').put(async (req, res, next) => {
+    try {
+        let data = {
+            password: String(req.body.password),
+        }
         await usersDb.doc(req.body._id).update(data)
         res.json();
     } catch (error) {
