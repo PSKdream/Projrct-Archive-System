@@ -11,7 +11,7 @@ import { ProjectService } from '../../service/project/project.service';
 })
 export class TestComponent implements OnInit {
   formData = new FormData();
-  arr = [0] 
+  arr = [1] 
   formSection = new FormGroup({
     text: new FormControl(''),
   });

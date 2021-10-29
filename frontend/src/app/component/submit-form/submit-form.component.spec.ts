@@ -2,6 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubmitFormComponent } from './submit-form.component';
 
+export class userModel {
+  course! : string;
+  gadiater! : number;
+}
+
 describe('SubmitFormComponent', () => {
   let component: SubmitFormComponent;
   let fixture: ComponentFixture<SubmitFormComponent>;
