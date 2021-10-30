@@ -16,7 +16,6 @@ export class ProjectService {
 
   upload(file:any): Observable<any> {
     let API_URL = `${this.Rest_API}/upload`; //"https://file.io"
-
     return this.httpClient.post(API_URL, file)
       .pipe(
         catchError(this.handleError)

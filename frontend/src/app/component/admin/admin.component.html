@@ -49,7 +49,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a routerLink="/admin/user-management" href="" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline link-light"
                                 routerLinkActive="active">Customers</span> </a>
                     </li>
@@ -59,9 +59,10 @@
                     <!-- Split dropup button -->
                     <div class="btn-group dropup">
                         <a class="dropdown-toggle dropdown-toggle-split link-light text-decoration-none "
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                            data-bs-toggle="dropdown" aria-expanded="false" href="">
                             {{(dataUser == undefined)? 'Userundefined' :dataUser.username}}
-                            <span class="visually-hidden">Toggle Dropdown</span>
+                            <span class="visually-hidden" >Toggle Dropdown</span>
+
                         </a>
                         <ul class="dropdown-menu">
                             <li>
