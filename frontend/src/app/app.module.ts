@@ -14,7 +14,7 @@ import { SubmitFormComponent } from './component/submit-form/submit-form.compone
 import { EditUserComponent } from './component/admin/user-management/edit-user/edit-user.component';
 import { InsertUserComponent } from './component/admin/user-management/insert-user/insert-user.component';
 import { ResetPasswordComponent } from './component/admin/user-management/reset-password/reset-password.component';
-import { ProjectListComponent } from './component/project-list/project-list.component';
+import { ProjectListComponent } from './component/admin/project-list/project-list.component';
 
 @NgModule({
   declarations: [
