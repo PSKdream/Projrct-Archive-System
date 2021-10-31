@@ -48,9 +48,8 @@
                 </label>
             </app-reset-password>
 
-
             <app-user-management *ngIf="content == 'user-management'"></app-user-management>
-            <app-project-list></app-project-list>
+            <app-project-list *ngIf="content == 'project'"></app-project-list>
 
         </div>
     </div>

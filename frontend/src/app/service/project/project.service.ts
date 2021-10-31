@@ -22,6 +22,12 @@ export class ProjectService {
       )
   }
 
+
+  getProject(){
+  let API_URL = `${this.Rest_API}/project`;
+    return this.httpClient.get(`${API_URL}`)
+  }
+
   //Error
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
