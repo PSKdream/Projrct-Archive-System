@@ -6,6 +6,7 @@ import { LoginComponent } from './component/login/login.component';
 import { TestComponent } from './component/test/test.component';
 import { ProjectListComponent } from './component/admin/project-list/project-list.component';
 import { SubmitFormComponent } from './component/submit-form/submit-form.component';
+import { ProjectDetailComponent } from './component/admin/project-detail/project-detail.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'admin/:id', component: AdminComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'test', component: TestComponent },
   { path: 'submit', component: SubmitFormComponent },
   { path: 'projectlist', component: ProjectListComponent },
+  { path: 'project-detail/:id', component: ProjectListComponent },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   

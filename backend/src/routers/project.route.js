@@ -2,6 +2,7 @@ const express = require("express");
 const Multer = require('multer');
 const admin = require("firebase-admin");
 const { getStorage } = require('firebase-admin/storage');
+const { firestore } = require("firebase-admin");
 
 const apiRoute = express.Router();
 const multer = Multer({
@@ -24,9 +25,10 @@ apiRoute.route('/test').get((req, res, next) => {
 })
 apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => {
     try {
-        // console.log(req.file);
-        // console.log(req.body);
-        // let result = await projectDb.doc().set(JSON.parse(req.body.dataProject));
+        if(req.file.mimetype !== "application/pdf"){
+            res.status(415).json('Unsupported Media Type')
+            return
+        }
         
         let _id = await projectDb.add(JSON.parse(req.body.dataProject))
             .then((docRef) => {
@@ -61,7 +63,6 @@ apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => 
     }
 })
 
-
 apiRoute.route('/project').get(async (req, res, next) => {
     try {
         let data = await projectDb.get();
@@ -78,5 +79,23 @@ apiRoute.route('/project').get(async (req, res, next) => {
         return next(error.status);
     }
 })
+
+// apiRoute.route('/project/:_id').get(async (req, res, next) => {
+//     try {
+//         console.log(req.params._id);
+//         let data = await projectDb.where(firestore.FieldPath.documentId,"==",req.params._id).get();
+
+//         let tempDict = []
+//         data.forEach(doc => {
+//             let tempData = doc.data()
+//             delete tempData.password;
+//             tempData['_id'] = doc.id
+//             tempDict.push(tempData)
+//         });
+//         res.json(tempDict);
+//     } catch (error) {
+//         return next(error.status);
+//     }
+// })
 
 module.exports = apiRoute;

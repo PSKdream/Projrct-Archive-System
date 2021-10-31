@@ -14,7 +14,7 @@ export class ProjectService {
 
   constructor(private httpClient: HttpClient) { }
 
-  upload(file:any): Observable<any> {
+  upload(file: any): Observable<any> {
     let API_URL = `${this.Rest_API}/upload`; //"https://file.io"
     return this.httpClient.post(API_URL, file)
       .pipe(
@@ -23,8 +23,8 @@ export class ProjectService {
   }
 
 
-  getProject(){
-  let API_URL = `${this.Rest_API}/project`;
+  getProject() {
+    let API_URL = `${this.Rest_API}/project/`;
     return this.httpClient.get(`${API_URL}`)
   }
 

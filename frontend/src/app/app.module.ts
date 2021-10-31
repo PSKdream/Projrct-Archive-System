@@ -15,6 +15,7 @@ import { EditUserComponent } from './component/admin/user-management/edit-user/e
 import { InsertUserComponent } from './component/admin/user-management/insert-user/insert-user.component';
 import { ResetPasswordComponent } from './component/admin/user-management/reset-password/reset-password.component';
 import { ProjectListComponent } from './component/admin/project-list/project-list.component';
+import { ProjectDetailComponent } from './component/admin/project-detail/project-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProjectListComponent } from './component/admin/project-list/project-lis
     EditUserComponent,
     InsertUserComponent,
     ResetPasswordComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ProjectDetailComponent
   ],
   imports: [
     BrowserModule,
