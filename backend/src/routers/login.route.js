@@ -19,9 +19,6 @@ const usersDb = db.collection('users');
 const projectDb = db.collection('projects');
 
 
-apiRoute.route('/test').get((req, res, next) => {
-    res.json('test.....');
-})
 apiRoute.route('/validate-login').post(async (req, res, next) => {
     try {
         let username = req.body.username
@@ -118,47 +115,6 @@ apiRoute.route('/get-user').get(async (req, res, next) => {
         return next(error.status);
     }
 })
-
-
-apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => {
-    try {
-        // console.log(req.file);
-        // console.log(req.body);
-        // let result = await projectDb.doc().set(JSON.parse(req.body.dataProject));
-        
-        let _id = await projectDb.add(JSON.parse(req.body.dataProject))
-            .then((docRef) => {
-                // console.log("Document written with ID: ", docRef.id);
-                return docRef.id
-               
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
-        const folder = 'profile'
-        const filename = `${folder}/${_id}`
-        const fileUpload = bucket.file(filename)
-        // console.log(req);
-        const blobStream = fileUpload.createWriteStream({
-            metadata: {
-                contentType: req.file.mimetype
-            }
-        })
-
-        blobStream.on('error', (err) => {
-            res.status(405).json(err)
-        })
-
-        blobStream.on('finish', (err) => {
-            res.status(200).json('upload complete')
-        })
-        blobStream.end(req.file.buffer)
-
-    } catch (error) {
-        return next(error);
-    }
-})
-
 
 
 module.exports = apiRoute;

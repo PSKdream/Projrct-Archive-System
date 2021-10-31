@@ -27,8 +27,8 @@ app.use(
 );
 
 //API
-const API = require("./routers/api.route");
-app.use("/api", API);
+app.use("/api", require("./routers/login.route"));
+app.use("/api", require('./routers/project.route'));
 
 //create port
 // Handle production
