@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, FormBuilder , Validators, ReactiveFormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
 import { ProjectService } from '../../service/project/project.service';
 
@@ -10,6 +10,8 @@ import { ProjectService } from '../../service/project/project.service';
   styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
+  exam : FormGroup;
+
   formData = new FormData();
   arr = [1] 
   formSection = new FormGroup({
@@ -17,7 +19,16 @@ export class TestComponent implements OnInit {
   });
   constructor(private _projectService: ProjectService,
      private router: Router,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone,
+    private formbuilder:FormBuilder) { 
+      this.exam = this.formbuilder.group({
+        name:[null,Validators.required],
+        mail:[null,Validators.required,Validators.email],
+        phone:[null,Validators.required,
+        Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')],
+        message : new FormControl(null, [Validators.required, Validators.minLength(10)])
+      })
+    }
 
   ngOnInit(): void {
   }
@@ -45,7 +56,6 @@ export class TestComponent implements OnInit {
     }
   }
 
-
   changeCount(number:number){
     console.log(number);
     if(number === 1){
@@ -55,4 +65,9 @@ export class TestComponent implements OnInit {
       this.arr.pop()
     }
   }
+  // onSubmit():any{
+  //   if(window.confirm("Are you sure")){
+      
+  //   }
+  // }
 }

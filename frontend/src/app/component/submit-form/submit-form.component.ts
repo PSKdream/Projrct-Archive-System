@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import {FormControl,FormGroup,FormArray} from '@angular/forms';
+import {FormControl,FormGroup,FormArray, FormBuilder, Validators} from '@angular/forms';
 import { ProjectService } from '../../service/project/project.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { ProjectService } from '../../service/project/project.service';
   styleUrls: ['./submit-form.component.scss']
 })
 export class SubmitFormComponent implements OnInit {
+
   formData = new FormData();
   submit_form = new FormGroup({
     course: new FormControl(''),
@@ -29,11 +30,11 @@ export class SubmitFormComponent implements OnInit {
   developNames = this.submit_form.get('developNames') as FormArray;
   fileName = '';
 
-  constructor(private _projectService: ProjectService) { }
+  constructor(private _projectService: ProjectService,) { 
+    }
+
   ngOnInit(): void {
-
     console.log(this.submit_form.value);
-
   }
   changeCount(number: number) {
     console.log(number);
