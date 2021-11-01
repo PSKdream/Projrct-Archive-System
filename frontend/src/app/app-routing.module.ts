@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'test', component: TestComponent },
   { path: 'submit', component: SubmitFormComponent },
   { path: 'projectlist', component: ProjectListComponent },
-  { path: 'project-detail/:id', component: ProjectListComponent },
+  { path: 'project-detail/:id', component: ProjectDetailComponent },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   

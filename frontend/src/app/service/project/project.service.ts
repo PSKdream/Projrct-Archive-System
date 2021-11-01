@@ -2,7 +2,17 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
+export class projectAttribute {
+  nameTH!: String;
+  nameEng!: String;
+  graduation_year!: String;
+  sorec_code!: String;
+  advisor_name!: String;
+  project_type!: String;
+  course!: String;
+  developNames!: Array<any>;
+  abstract!: String;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +35,11 @@ export class ProjectService {
 
   getProject() {
     let API_URL = `${this.Rest_API}/project/`;
+    return this.httpClient.get(`${API_URL}`)
+  }
+
+  getDetail(_id:String):Observable<any>  {
+    let API_URL = `${this.Rest_API}/project/${_id}`;
     return this.httpClient.get(`${API_URL}`)
   }
 

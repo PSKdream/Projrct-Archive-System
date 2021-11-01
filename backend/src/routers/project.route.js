@@ -80,22 +80,22 @@ apiRoute.route('/project').get(async (req, res, next) => {
     }
 })
 
-// apiRoute.route('/project/:_id').get(async (req, res, next) => {
-//     try {
-//         console.log(req.params._id);
-//         let data = await projectDb.where(firestore.FieldPath.documentId,"==",req.params._id).get();
-
-//         let tempDict = []
-//         data.forEach(doc => {
-//             let tempData = doc.data()
-//             delete tempData.password;
-//             tempData['_id'] = doc.id
-//             tempDict.push(tempData)
-//         });
-//         res.json(tempDict);
-//     } catch (error) {
-//         return next(error.status);
-//     }
-// })
+apiRoute.route('/project/:_id').get(async (req, res, next) => {
+    try {
+        // console.log(req.params._id);
+        let data = await projectDb.doc(req.params._id).get();
+        // console.log();
+        // let tempDict = []
+        // data.forEach(doc => {
+        //     let tempData = doc.data()
+        //     delete tempData.password;
+        //     tempData['_id'] = doc.id
+        //     tempDict.push(tempData)
+        // });
+        res.json(data.data());
+    } catch (error) {
+        return next(error.status);
+    }
+})
 
 module.exports = apiRoute;
