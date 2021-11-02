@@ -5,14 +5,12 @@ import { TestComponent } from './test.component';
 describe('TestComponent', () => {
   let component: TestComponent;
   let fixture: ComponentFixture<TestComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ TestComponent ]
     })
     .compileComponents();
   });
-
   beforeEach(() => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
