@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validator, Validators, ReactiveFor
 import { Router } from "@angular/router";
 import { LoginService } from '../../service/login/login.service';
 import { Md5 } from 'ts-md5/dist/md5';
+import { faUser, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 export class LoginComponent implements OnInit {
   loginFail = ""
   md5 = new Md5();
+  faUser = faUser;
 
   bioSection = new FormGroup({
     username: new FormControl(''),
