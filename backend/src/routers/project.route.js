@@ -29,8 +29,9 @@ apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => 
             res.status(415).json('Unsupported Media Type')
             return
         }
-
-        let _id = await projectDb.add(JSON.parse(req.body.dataProject))
+        let data = JSON.parse(req.body.dataProject)
+        data['approve'] = false
+        let _id = await projectDb.add(JSON.parse(req.body.data))
             .then((docRef) => {
                 // console.log("Document written with ID: ", docRef.id);
                 return docRef.id
