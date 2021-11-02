@@ -5,38 +5,41 @@
             <form [formGroup]="submit_form" (ngSubmit)="submitProject()">
                 <div class="form-group">
                     <label for="course">หลักสูตร</label>
-                    <input type="text" class="form-control mt-2" formControlName="course" required>
-                    {{submit_form.get('course').value}}
+                    <input type="text" class="form-control mt-2" formControlName="course" required
+                    [ngClass]="{'is-invalid': submit_form.get('course').errors?.required && submit_form.get('course').touched}"
+                    >
                     <!-- [ngClass]="{'is-invalid': submit_form.get('course').value === '' || submit_form.get('course').touched}" -->
                     <!-- <div 
                      class="invalid-feedback">course is required</div> -->
-                    <small *ngIf="submit_form.get('course').errors && submit_form.get('course').touched ? 'is-invalid' : '' " class="text-danger">
+                    <small *ngIf="submit_form.get('course').errors && submit_form.get('course').touched" class="text-danger">
                         course is required</small>
                 </div>
                 <div class="form-group mt-2">
                     <label for="graduation-year">ปีที่สำเร็จการศึกษา</label>
-                    <input type="text" class="form-control mt-2" formControlName="graduation_year" required>
-                    <div class="invalid-feedback">Please choose a username.</div>
-                    <small *ngIf="submit_form.get('graduation_year').errors && submit_form.get('graduation_year').touched ? 'is-invalid' : '' " class="text-danger">
+                    <input type="text" class="form-control mt-2" formControlName="graduation_year" required
+                    [ngClass]="{'is-invalid': submit_form.get('graduation_year').errors?.required && submit_form.get('graduation_year').touched}">
+                    <small *ngIf="submit_form.get('graduation_year').errors && submit_form.get('graduation_year').touched " class="text-danger">
                         graduation-year is required</small>
                 </div>
                 <div class="form-group mt-2">
                     <label for="project_type">ประเภทโครงงาน</label>
-                    <input type="text" class="form-control mt-2" formControlName="project_type" required>
-                    <div class="invalid-feedback">Please choose a username.</div>
-                    <small *ngIf="submit_form.get('project_type').errors && submit_form.get('project_type').touched ? 'is-invalid' : '' " class="text-danger">
+                    <input type="text" class="form-control mt-2" formControlName="project_type" required
+                    [ngClass]="{'is-invalid': submit_form.get('project_type').errors?.required && submit_form.get('project_type').touched}">
+                    <small *ngIf="submit_form.get('project_type').errors && submit_form.get('project_type').touched " class="text-danger">
                         project_type is required</small>
                 </div>
                 <div class="form-group mt-2">
                     <label for="nameTH">ชื่อโครงงานภาษาไทย</label>
-                    <input type="text" class="form-control mt-2" formControlName="project_nameTH" required>
-                    <small *ngIf="submit_form.get('project_nameTH').errors && submit_form.get('project_nameTH').touched ? 'is-invalid' : '' " class="text-danger">
+                    <input type="text" class="form-control mt-2" formControlName="project_nameTH" required
+                    [ngClass]="{'is-invalid': submit_form.get('project_nameTH').errors?.required && submit_form.get('project_nameTH').touched}">
+                    <small *ngIf="submit_form.get('project_nameTH').errors && submit_form.get('project_nameTH').touched " class="text-danger">
                         project_type is required</small>
                 </div>
                 <div class="form-group mt-2">
                     <label for="nameENG">ชื่อโครงงานภาษาอังกฤษ</label>
-                    <input type="text" class="form-control mt-2" formControlName="project_nameEng" required>
-                    <small *ngIf="submit_form.get('project_nameEng').errors && submit_form.get('project_nameEng').touched ? 'is-invalid' : '' " class="text-danger">
+                    <input type="text" class="form-control mt-2" formControlName="project_nameEng" required
+                    [ngClass]="{'is-invalid': submit_form.get('project_nameEng').errors?.required && submit_form.get('project_nameEng').touched}">
+                    <small *ngIf="submit_form.get('project_nameEng').errors && submit_form.get('project_nameEng').touched " class="text-danger">
                         project_type is required</small>
                 </div>
                 <div class="form-group mt-2">
@@ -48,20 +51,20 @@
                         *ngFor="let item of developNames.controls; let i = index ">
                         <div [formGroupName]="i" class="row m-0 p-0">
                             <div class="col-4">
-                                <input type="text" class="form-control mt-2" formControlName="ID" required
-                                    placeholder="ID">
+                                <input type="text" class="form-control mt-2" formControlName="ID" required placeholder="ID"
+                                [ngClass]="{'is-invalid' : item.get('ID').errors?.required && item.get('ID').touched}">
                                     <!-- {{item.get('ID').value}} -->
-                                    <small *ngIf="item.get('ID').errors && item.get('ID').touched ? 'is-invalid' : '' " class="text-danger">develop_ID is required</small>
+                                    <small *ngIf="item.get('ID').errors && item.get('ID').touched " class="text-danger">develop_ID is required</small>
                             </div>
                             <div class="col-4">
-                                <input type="text" class="form-control mt-2" formControlName="firstname" required
-                                    placeholder="Firstname">
-                                <small *ngIf="item.get('firstname').errors && item.get('firstname').touched ? 'is-invalid' : '' " class="text-danger">develop_ID is required</small>
+                                <input type="text" class="form-control mt-2" formControlName="firstname" required placeholder="Firstname"
+                                [ngClass]="{'is-invalid' : item.get('firstname').errors?.required && item.get('firstname').touched}">
+                                <small *ngIf="item.get('firstname').errors && item.get('firstname').touched " class="text-danger">develop_ID is required</small>
                             </div>
                             <div class="col-4">
-                                <input type="text" class="form-control mt-2" formControlName="lastname" required
-                                    placeholder="Lastname">
-                                <small *ngIf="item.get('lastname').errors && item.get('lastname').touched ? 'is-invalid' : '' " class="text-danger">develop_ID is required</small>
+                                <input type="text" class="form-control mt-2" formControlName="lastname" required placeholder="Lastname"
+                                [ngClass]="{'is-invalid' : item.get('lastname').errors?.required && item.get('lastname').touched}">
+                                <small *ngIf="item.get('lastname').errors && item.get('lastname').touched " class="text-danger">develop_ID is required</small>
                             </div>
                         </div>
                     </div>
@@ -69,35 +72,37 @@
                 <div class=" mb-2 mt-2">
                     <label class="mt-2" for="advisor-name">อาจารย์ที่ปรึกษา</label>
                     <div class="input-group">
-                        <select class="form-select " id="inputGroupSelect01" formControlName="advisor_name">
+                        <select class="form-select " id="inputGroupSelect01" formControlName="advisor_name" required
+                        [ngClass]="{'is-invalid': submit_form.get('advisor_name').errors?.required && submit_form.get('advisor_name').touched}">
                             <option value="t1">จารย์หนึ่งคงกระพัน</option>
                             <option value="t2">จารย์สองเหล็กไหล</option>
                             <option value="t3">จารย์สามสองสิบแปด</option>
                         </select>
                         <!-- {{submit_form.get('advisor_name').value}} -->
                     </div>
-                    <small *ngIf="submit_form.get('advisor_name').errors && submit_form.get('advisor_name').touched ? 'is-invalid' : '' " class="text-danger">advisor-name is required</small>
+                    <small *ngIf="submit_form.get('advisor_name').errors && submit_form.get('advisor_name').touched " class="text-danger">advisor-name is required</small>
                 </div>
                 <div class=" mt-2">
                     <label class="mt-0" for="advisor-name">บทคัดย่อ</label>
-                    <textarea class="form-control" aria-label="With textarea" formControlName="abstract"></textarea>
-                    <small *ngIf="submit_form.get('abstract').errors && submit_form.get('abstract').touched ? 'is-invalid' : '' " class="text-danger">
+                    <textarea class="form-control" aria-label="With textarea" formControlName="abstract" required
+                    [ngClass]="{'is-invalid': submit_form.get('abstract').errors?.required && submit_form.get('abstract').touched}"></textarea>
+                    <small *ngIf="submit_form.get('abstract').errors && submit_form.get('abstract').touched " class="text-danger">
                         project_type is required</small>
                 </div>
                 <div class="form-group mt-2">
                     <label for="course">ที่เก็บซอร์สโค้ด</label>
-                    <input type="text" class="form-control mt-2" formControlName="sorec_code" required>
-                    <small *ngIf="submit_form.get('sorec_code').errors && submit_form.get('sorec_code').touched ? 'is-invalid' : '' " class="text-danger">
+                    <input type="text" class="form-control mt-2" formControlName="sorec_code" required
+                    [ngClass]="{'is-invalid': submit_form.get('sorec_code').errors?.required && submit_form.get('sorec_code').touched}">
+                    <small *ngIf="submit_form.get('sorec_code').errors && submit_form.get('sorec_code').touched " class="text-danger">
                         project_type is required</small>
                 </div>
-                <div class="mt-2">
-                    <label for="course">ไฟล์รูปเล่ม</label>
-                    <div class="input-group mb-3 mt-2">
+                <div class="mt-2 mb-3">
+                    <label for="course">ไฟล์รูปเล่ม (.PDF)</label>
+                    <div class="input-group  mt-2">
                         <input type="file" class="form-control" id="inputGroupFile02" (change)="uploadFile($event)">
                         <label class="input-group-text" for="inputGroupFile02">Upload</label>
                     </div>
-                    <!-- <small *ngIf="submit_form.get('project_nameEng').errors && submit_form.get('project_nameEng').touched ? 'is-invalid' : '' " class="text-danger">
-                        project_type is required</small> -->
+                    <small class="text-danger">{{fileAlert}}</small>
                 </div>
                 <div class="form-group mt-2 text-center">
                     <button class="btn btn-primary btn-block mt-3" type="submit">Submit</button>
