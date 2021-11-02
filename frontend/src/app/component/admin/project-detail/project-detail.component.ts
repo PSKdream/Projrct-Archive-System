@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../service/project/project.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class projectAttribute {
-  nameTH!: String;
-  nameEng!: String;
+  project_nameTH!: String;
+  project_nameEng!: String;
   graduation_year!: String;
   sorec_code!: String;
   advisor_name!: String;
@@ -20,8 +20,8 @@ export class projectAttribute {
 })
 export class ProjectDetailComponent implements OnInit {
   data:projectAttribute = {
-    nameTH: "",
-    nameEng: "",
+    project_nameTH: "",
+    project_nameEng: "",
     graduation_year: "",
     sorec_code: "",
     advisor_name: "",
