@@ -1,5 +1,5 @@
-import { Component, OnInit, NgZone,ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Router, NavigationStart, ActivatedRoute, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
 import { LoginService } from '../../service/login/login.service';
 
 
@@ -18,39 +18,34 @@ export class Account {
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  content = ""
-  dataUser:any
+  contentList = ['user-management', 'project']
+  content: any
+  dataUser: any
   @ViewChild('openModel') openModel: ElementRef;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private ngZone: NgZone,
-    private _loginService: LoginService
-  ) { 
+    private _loginService: LoginService) {
     this.openModel = new ElementRef<any>(null)
-    // this.openModel.nativeElement.click();
+    router.events.subscribe((val) => {
+      // see also 
+      if (val instanceof NavigationEnd) {
+        this.content = this.route.snapshot.paramMap.get("id");
+        // if (this.contentList.indexOf(this.content) === -1)
+        //   console.log(this.contentList);
+        // // this.ngZone.run(() => this.router.navigateByUrl('/admin'))F
+      }
+    });
   }
-  
 
   ngOnInit(): void {
-    
     this.dataUser = this._loginService.getDataUser()[0]
-    console.log('dddddd',this.dataUser);
-
-
-    let contentList = ['user-management','project']
-    // console.log(this.route.snapshot.paramMap.get("id"));
-      
-    this.content = String(this.route.snapshot.paramMap.get("id"));
-    if (contentList.indexOf(this.content) === -1)
-      this.ngZone.run(() => this.router.navigateByUrl('/admin'))
-    // if (params.has('id')) {
-    //   // this.highlightId = params.get('id');
-    // }
-    console.log(this.content);
-   
+    console.log('dddddd', this.dataUser);
   }
-  resetPassword(){
+
+  resetPassword() {
     this.openModel.nativeElement.click();
   }
 }
