@@ -17,6 +17,7 @@ import { ResetPasswordComponent } from './component/admin/user-management/reset-
 import { ProjectListComponent } from './component/admin/project-list/project-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProjectDetailComponent } from './component/admin/project-detail/project-detail.component';
+import { EditFormComponent } from './component/edit-form/edit-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ProjectDetailComponent } from './component/admin/project-detail/project
     InsertUserComponent,
     ResetPasswordComponent,
     ProjectListComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    EditFormComponent
   ],
   imports: [
     BrowserModule,
