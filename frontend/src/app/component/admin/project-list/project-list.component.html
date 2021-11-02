@@ -22,10 +22,12 @@
                             {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
                         </li>
                     </ul></td>
-                    <td  class="text-center">อนุมัติแล้ว</td>
+                    <td  class="text-center">อนุมัติแล้ว {{item._id}}</td>
                     <td>
-                        
-                        <i class="bi bi-archive-fill" style="cursor: pointer; color: #000000"></i>
+                        <i class="bi bi-archive-fill" 
+                        style="cursor: pointer; color: #000000"
+                        [routerLink]="['/project-detail/'+item._id]"
+                        ></i>
                     </td>
                 </tr>
             </tbody>
