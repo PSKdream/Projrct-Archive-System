@@ -34,9 +34,17 @@ export class ProjectService {
 
   update(file: any,_id:string): Observable<any> {
     let API_URL = `${this.Rest_API}/update/${_id}`; //"https://file.io"
-    return this.httpClient.post(API_URL, file)
+    return this.httpClient.put(API_URL, file)
       .pipe(
         catchError(this.handleError)
+      )
+  }
+
+  approve(data:any){
+    let API_URL = `${this.Rest_API}/approve`;
+    return this.httpClient.put(API_URL,data,{headers: this.httpHeaders})
+      .pipe(
+      catchError(this.handleError)
       )
   }
 
