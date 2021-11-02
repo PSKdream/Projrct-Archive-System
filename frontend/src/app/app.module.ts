@@ -15,6 +15,7 @@ import { EditUserComponent } from './component/admin/user-management/edit-user/e
 import { InsertUserComponent } from './component/admin/user-management/insert-user/insert-user.component';
 import { ResetPasswordComponent } from './component/admin/user-management/reset-password/reset-password.component';
 import { ProjectListComponent } from './component/admin/project-list/project-list.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ProjectListComponent } from './component/admin/project-list/project-lis
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
