@@ -66,8 +66,8 @@ export class SubmitFormComponent implements OnInit {
   
   uploadFile(event:any) {
     const file:File = event.target.files[0];
-    if (file && file.type != '.pdf') {
-        console.log(file.type);
+    if (file) {
+        console.log(file);
         this.fileName = file.name;
         this.formData.append("file", file);
         this.formData.append("dataProject",JSON.stringify( this.submit_form.value));

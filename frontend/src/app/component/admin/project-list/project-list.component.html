@@ -8,25 +8,24 @@
         <table class="table mt-5">
             <thead>
                 <tr>
-                    <th scope="col">Project name</th>
-                    <th scope="col">Student ID</th>
-                    <th scope="col">Name</th>
-                    <td scope="col">Status</td>
-                    <td scope="col">Action</td>
+                    <th scope="col-4">Project name</th>
+                    <th scope="col-4"> Name</th>
+                    <td scope="col-2" class="text-center">Status</td>
+                    <td scope="col-2" class="text-center">Action</td>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of dataProjectList; let i = index" >
-                    <th scope="row">{{i+1}}</th>
-                    <td>6252300331
-                    </td>
-                    <td>นรภัทร คำมล
-                    </td>
-                    <td>อนุมัติแล้ว</td>
+                <tr *ngFor="let item of dataProjectList;" >
+                    <th scope="row">{{item.project_nameTH}}</th>
+                    <td> <ul>
+                        <li class="list-name"  *ngFor="let name_develop of item.developNames; ">
+                            {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
+                        </li>
+                    </ul></td>
+                    <td  class="text-center">อนุมัติแล้ว</td>
                     <td>
-                        <!-- <app-reset-password><i class="bi bi-key text-warning fs-5"></i></app-reset-password>
-                        <app-edit-user class="ms-3"></app-edit-user> -->
-                        <i class="bi bi-trash ms-3" style="cursor: pointer; color: #ff968a"></i>
+                        
+                        <i class="bi bi-archive-fill" style="cursor: pointer; color: #000000"></i>
                     </td>
                 </tr>
             </tbody>

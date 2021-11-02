@@ -38,6 +38,11 @@ export class ProjectService {
     return this.httpClient.get(`${API_URL}`)
   }
 
+  getUrlFile(_id:String) :Observable<any>  {
+    let API_URL = `${this.Rest_API}/fileProject/${_id}`;
+    return this.httpClient.get(`${API_URL}`)
+  }
+
   getDetail(_id:String):Observable<any>  {
     let API_URL = `${this.Rest_API}/project/${_id}`;
     return this.httpClient.get(`${API_URL}`)
