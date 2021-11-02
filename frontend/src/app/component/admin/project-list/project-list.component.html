@@ -1,4 +1,3 @@
-้<h1>Norinwza 007</h1>
 <div class="container row justify-content-center">
     <div class="col-12">
         <div class="mt-5 mb-2 border-bottom btn-toolbar justify-content-between">
@@ -17,20 +16,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">Mask Detection</th>
+                <tr *ngFor="let item of dataProjectList; let i = index" >
+                    <th scope="row">{{i+1}}</th>
                     <td>6252300331
-                        <br>
-                        6252300373
                     </td>
                     <td>นรภัทร คำมล
-                        <br>
-                        ธนาธิป งามเลิศ
                     </td>
                     <td>อนุมัติแล้ว</td>
                     <td>
-                        <app-reset-password><i class="bi bi-key text-warning fs-5"></i></app-reset-password>
-                        <app-edit-user class="ms-3"></app-edit-user>
+                        <!-- <app-reset-password><i class="bi bi-key text-warning fs-5"></i></app-reset-password>
+                        <app-edit-user class="ms-3"></app-edit-user> -->
                         <i class="bi bi-trash ms-3" style="cursor: pointer; color: #ff968a"></i>
                     </td>
                 </tr>
@@ -38,3 +33,18 @@
         </table>
     </div>
 </div>
+
+<!-- <tbody>
+    <tr *ngFor="let item of userAccountList; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.firstname+' '+item.lastname}}</td>
+        <td>{{item.role}}</td>
+        <td>
+            <app-reset-password [itemData]="item" (onDone)="onDone($event)"><i class="bi bi-key text-warning fs-5"></i></app-reset-password>
+            <app-edit-user class="ms-3" [itemData]="item" (onDone)="onDone($event)"></app-edit-user>
+            <i class="bi bi-trash ms-3" style="cursor: pointer; color: #ff968a"
+                (click)="onDelete(item._id)"></i>
+        </td>
+
+    </tr>
+</tbody> -->

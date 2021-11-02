@@ -15,12 +15,13 @@ export class SubmitFormComponent implements OnInit {
     course: new FormControl(''),
     graduation_year: new FormControl(''),
     project_type: new FormControl(''),
-    nameTH: new FormControl(''),
-    nameEng: new FormControl(''),
+    project_nameTH: new FormControl(''),
+    project_nameEng: new FormControl(''),
     developNames: new FormArray([
       new FormGroup({
         ID: new FormControl(''),
-        Name: new FormControl('')
+        firstname: new FormControl(''),
+        lastname: new FormControl('')
       })
     ]),
     abstract: new FormControl(''),
@@ -41,7 +42,8 @@ export class SubmitFormComponent implements OnInit {
     if (number === 1) {
       this.developNames.push(new FormGroup({
         ID: new FormControl(''),
-        Name: new FormControl('')
+        firstname: new FormControl(''),
+        lastname: new FormControl('')
       })
       )
     }
@@ -64,7 +66,8 @@ export class SubmitFormComponent implements OnInit {
   
   uploadFile(event:any) {
     const file:File = event.target.files[0];
-    if (file) {
+    if (file && file.type != '.pdf') {
+        console.log(file.type);
         this.fileName = file.name;
         this.formData.append("file", file);
         this.formData.append("dataProject",JSON.stringify( this.submit_form.value));
