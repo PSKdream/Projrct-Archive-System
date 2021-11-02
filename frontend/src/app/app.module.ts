@@ -16,20 +16,22 @@ import { InsertUserComponent } from './component/admin/user-management/insert-us
 import { ResetPasswordComponent } from './component/admin/user-management/reset-password/reset-password.component';
 import { ProjectListComponent } from './component/admin/project-list/project-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProjectDetailComponent } from './component/admin/project-detail/project-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AdminComponent,
-    LoginComponent,
+    LoginComponent, 
     UserManagementComponent,
     TestComponent,
     SubmitFormComponent,
     EditUserComponent,
     InsertUserComponent,
     ResetPasswordComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ProjectDetailComponent
   ],
   imports: [
     BrowserModule,

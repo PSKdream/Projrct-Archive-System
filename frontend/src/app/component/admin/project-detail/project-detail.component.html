@@ -1,0 +1,48 @@
+<div class="container row justify-content-center m-4 mt-5">
+    <h3 class="mb-2">รายละเอียดโปรเจค</h3>
+    <div class="mt-2">
+        <h6>หลักสูตร</h6>
+        <p>{{data.course}}</p>
+    </div>
+    <div class="mt-2">
+        <h6>ภาคและปีการศึกษาที่สำเร็จการศึกษา</h6>
+        <p>{{data.graduation_year}}</p>
+    </div>
+    <div class="mt-2">
+        <h6>ประเภทโครงงาน</h6>
+        <p>{{data.project_type}}</p>
+    </div>
+    <div class="mt-2">
+        <h6>ชื่อโครงงานภาษาไทย</h6>
+        <p>{{data.project_nameTH}}</p>
+    </div>
+    <div class="mt-2">
+        <h6>ชื่อโครงงานภาษาอังกฤษ</h6>
+        <p>{{data.project_nameEng}}</p>
+    </div>
+    <div class="mt-2">
+        <h6>ผู้พัฒนา</h6>
+        <p class="mb-0" *ngFor="let item of data.developNames">{{item.ID+" "+item.firstname+" "+item.lastname}}</p>
+    </div>
+    <div class="mt-4">
+        <h6>อาจารย์ที่ปรึกษาหลัก</h6>
+        <p>{{data.advisor_name}}</p>
+    </div>
+    <div class="mt-2">
+        <h6>บทคัดย่อ</h6>
+        <p>{{data.abstract}}</p>
+    </div>
+
+    <div class="mt-2">
+        <h6>ที่เก็บซอร์สโค้ด</h6>
+        <p>{{data.sorec_code}}</p>
+    </div>
+    <!-- <div  class="mt-2">
+        <h6>Download</h6>
+    </div> -->
+    <div>
+        <iframe [src]="urlFile" frameborder="0" style="width:90vw" height="1000">
+        </iframe>
+    </div>
+
+</div>
