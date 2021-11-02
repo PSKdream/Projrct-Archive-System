@@ -96,7 +96,7 @@ apiRoute.route('/fileProject/:id').get(async (req, res, next) => {
         const options = {
             version: 'v2', // defaults to 'v2' if missing.
             action: 'read',
-            expires: Date.now() + 1000 * 60 * 60, // one hour
+            expires: Date.now() + 1000 * 60 * 60 * 2, // two hour
         };
         const fileName = `fileProject/${req.params.id}`;
         var url = await getStorage().bucket()
