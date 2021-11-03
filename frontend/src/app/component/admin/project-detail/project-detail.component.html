@@ -1,62 +1,74 @@
-<div class="container row justify-content-center m-4 mt-5">
-    <h3 class="mb-2">รายละเอียดโปรเจค</h3>
-    <div class="mt-2">
-        <h6>หลักสูตร</h6>
-        <p>{{data.course}}</p>
-    </div>
-    <div class="mt-2">
-        <h6>ภาคและปีการศึกษาที่สำเร็จการศึกษา</h6>
-        <p>{{data.graduation_year}}</p>
-    </div>
-    <div class="mt-2">
-        <h6>ประเภทโครงงาน</h6>
-        <p>{{data.project_type}}</p>
-    </div>
-    <div class="mt-2">
-        <h6>ชื่อโครงงานภาษาไทย</h6>
-        <p>{{data.project_nameTH}}</p>
-    </div>
-    <div class="mt-2">
-        <h6>ชื่อโครงงานภาษาอังกฤษ</h6>
-        <p>{{data.project_nameEng}}</p>
-    </div>
-    <div class="mt-2">
-        <h6>ผู้พัฒนา</h6>
-        <p class="mb-0" *ngFor="let item of data.developNames">{{item.ID+" "+item.firstname+" "+item.lastname}}</p>
-    </div>
-    <div class="mt-4">
-        <h6>อาจารย์ที่ปรึกษาหลัก</h6>
-        <p>{{data.advisor_name}}</p>
-    </div>
-    <div class="mt-2">
-        <h6>บทคัดย่อ</h6>
-        <p>{{data.abstract}}</p>
-    </div>
-
-    <div class="mt-2">
-        <h6>ที่เก็บซอร์สโค้ด</h6>
-        <p>{{data.sorec_code}}</p>
-    </div>
-    <div class="mt-2">
-        <div class="">
-            <h6>สถานะ</h6>
-            <p *ngIf="data.approve">อนุมัติแล้ว</p>
-            <p *ngIf="!data.approve">กำลังรอการอนุมัติ</p>
+<div class="container row justify-content-center m-4 mt-5 mb-5" *ngIf="_idInput === undefined || _idInput !== ''">
+    <div class="row justify-content-center">
+        <div class="row border-bottom col-10">
+            <div class="col">
+                <h3 class="mb-2">รายละเอียดโปรเจค</h3>
+            </div>
+            <div class="text-end col mb-2 pb-1" *ngIf="this._idInput !== undefined">
+                <button type="button" class="btn btn-danger" (click)="onDelete()" width='80px'>Delete</button>
+                <button type="button" class="btn btn-success ms-4" (click)="handleClick()"
+                    *ngIf="!data.approve">approve</button>
+            </div>
         </div>
-     
+        <div class="col-10 mt-4">
+            <div class="mt-2 row">
+                <div class="col-6">
+                    <label class="fw-bold">ชื่อโครงงานภาษาไทย</label>
+                    <p>{{data.project_nameTH}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="fw-bold">ชื่อโครงงานภาษาอังกฤษ</label>
+                    <p>{{data.project_nameEng}}</p>
+                </div>
+            </div>
+            <div class="mt-2 row">
+                <div class="col-6">
+                    <label class="fw-bold">หลักสูตร</label>
+                    <p>{{data.course}}</p>
+                </div>
+                <div class="col-6">
+                    <label class="fw-bold">ภาคและปีการศึกษาที่สำเร็จการศึกษา</label>
+                    <p>{{data.graduation_year}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="mt-2">
+                        <label class="fw-bold">ประเภทโครงงาน</label>
+                        <p>{{data.project_type}}</p>
+                    </div>
+                    <div class="mt-2">
+                        <label class="fw-bold">ผู้พัฒนา</label>
+                        <p class="mb-0" *ngFor="let item of data.developNames">{{item.ID+" "+item.firstname+"
+                            "+item.lastname}}
+                        </p>
+                    </div>
+                    <div class="mt-4">
+                        <label class="fw-bold">อาจารย์ที่ปรึกษาหลัก</label>
+                        <p>{{data.advisor_name.firstname+" "+data.advisor_name.lastname}}</p>
+                    </div>
+                    <div class="mt-2">
+                        <label class="fw-bold">บทคัดย่อ</label>
+                        <p>{{data.abstract}}</p>
+                    </div>
+                </div>
+                <div class="col-3" *ngIf="this._idInput !== undefined">
+                    <div class="mt-2">
+                        <label class="fw-bold">สถานะ</label>
+                        <p *ngIf="data.approve">อนุมัติแล้ว</p>
+                        <p *ngIf="!data.approve">กำลังรอการอนุมัติ</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2">
+                <label class="fw-bold">ที่เก็บซอร์สโค้ด</label>
+                <p>{{data.sorec_code}}</p>
+            </div>
 
-        <button type="button" class="btn btn-secondary" (click)="handleClick()" *ngIf="!data.approve">approve</button>
-
-        <button type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
-
+        </div>
+        <div class="col-10 mt-3" *ngIf="urlFile !== undefined">
+            <iframe [src]="urlFile" frameborder="0" style="width:100%" height="1000">
+            </iframe>
+        </div>
     </div>
-
-    <!-- <div  class="mt-2">
-        <h6>Download</h6>
-    </div> -->
-    <div>
-        <iframe [src]="urlFile" frameborder="0" style="width:90vw" height="1000">
-        </iframe>
-    </div>
-
 </div>

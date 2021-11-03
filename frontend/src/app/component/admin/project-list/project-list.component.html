@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="pointer" [routerLink]="['/project-detail/'+item._id]" *ngFor="let item of dataProjectList;" >
+                <tr class="pointer" [routerLink]="['/admin/project-detail/'+item._id]" *ngFor="let item of dataProjectList;" >
                     <th scope="row">{{item.project_nameTH}}</th>
                     <td> <ul>
                         <li class="list-name" *ngFor="let name_develop of item.developNames; ">

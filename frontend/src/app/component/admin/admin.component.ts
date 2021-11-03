@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef ,SimpleChanges} from '@angular/core';
 import { Router, NavigationStart, ActivatedRoute, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
 import { LoginService } from '../../service/login/login.service';
 
@@ -18,9 +18,10 @@ export class Account {
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
-  contentList = ['user-management', 'project']
-  content: any
+  contentList = ['user-management', 'project','project-detail']
+  content='admin'
   dataUser: any
+  projectDetail = ''
   @ViewChild('openModel') openModel: ElementRef;
 
   constructor(
@@ -29,23 +30,32 @@ export class AdminComponent implements OnInit {
     private ngZone: NgZone,
     private _loginService: LoginService) {
     this.openModel = new ElementRef<any>(null)
-    router.events.subscribe((val) => {
-      // see also 
-      if (val instanceof NavigationEnd) {
-        this.content = this.route.snapshot.paramMap.get("id");
-        // if (this.contentList.indexOf(this.content) === -1)
-        //   console.log(this.contentList);
-        // // this.ngZone.run(() => this.router.navigateByUrl('/admin'))F
-      }
-    });
+    // router.events.subscribe((val) => {
+    //   // see also 
+    //   if (val instanceof NavigationEnd) {
+    //     this.content = this.route.snapshot.url[1].path;
+    //     // if (this.contentList.indexOf(this.content) === -1)
+    //     //   console.log(this.contentList);
+    //     // // this.ngZone.run(() => this.router.navigateByUrl('/admin'))F
+    //   }
+    // });
   }
 
   ngOnInit(): void {
     this.dataUser = this._loginService.getDataUser()[0]
+    // this.content = this.route.snapshot.url[1].path;
+    if(this.route.snapshot.url.length >= 2){
+      this.content = this.route.snapshot.url[1].path
+    }
+    if(this.route.snapshot.url.length == 3){
+      this.projectDetail = this.route.snapshot.url[2].path
+    }
+    console.log(this.route.snapshot.url);
     console.log('dddddd', this.dataUser);
   }
 
   resetPassword() {
     this.openModel.nativeElement.click();
   }
+
 }

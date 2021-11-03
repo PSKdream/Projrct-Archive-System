@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ProjectService } from '../../service/project/project.service';
+import { LoginService } from '../..//service/login/login.service';
 
 @Component({
   selector: 'app-submit-form',
@@ -31,12 +32,16 @@ export class SubmitFormComponent implements OnInit {
   developNames = this.submit_form.get('developNames') as FormArray;
   fileUpload = false;
   fileAlert = '';
+  teacherList = Array()
 
-  constructor(private _projectService: ProjectService,) {
+  constructor(private _projectService: ProjectService,private _loginService :LoginService) {
   }
 
   ngOnInit(): void {
     // console.log(this.submit_form.value);
+    this._loginService.getTeacherList().subscribe((res)=>{
+      this.teacherList = res
+    })
   }
   changeCount(number: number) {
     // console.log(number);

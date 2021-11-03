@@ -55,6 +55,11 @@ export class LoginService {
     return this.httpClient.get(`${API_URL}`)
   }
 
+  getTeacherList(): Observable<any>  {
+    let API_URL = `${this.Rest_API}/get-teacher`;
+    return this.httpClient.get(`${API_URL}`)
+  }
+
   addUser(data: addAccount): Observable<any> {
     let API_URL = `${this.Rest_API}/insert-user`;
     return this.httpClient.post(API_URL, data)

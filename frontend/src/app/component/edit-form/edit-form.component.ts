@@ -2,6 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ProjectService } from '../../service/project/project.service';
+import { LoginService } from '../..//service/login/login.service';
+
 
 @Component({
   selector: 'app-edit-form',
@@ -34,17 +36,29 @@ export class EditFormComponent implements OnInit {
   _id:string
   data: any
   approve:boolean
+  teacherList = Array()
 
   constructor(private _projectService: ProjectService,
-    private route: ActivatedRoute,) {
+    private route: ActivatedRoute,private _loginService :LoginService, private router: Router, private ngZone: NgZone) {
+      
   }
 
   ngOnInit(): void {
     this._id = String(this.route.snapshot.paramMap.get("id"));
     this._projectService.getDetail(this._id).subscribe((res) => {
-      this.submit_form.patchValue(res)
-      this.approve = res.approve
-      console.log(this.approve);
+      console.log(res);
+      if (res === null) {
+        this.ngZone.run(() => this.router.navigateByUrl('/home'))
+      }
+      let temp = res
+      temp.advisor_name = temp.advisor_name._id
+      this.submit_form.patchValue(temp)
+      this.approve = temp.approve
+    }, (err) => {
+      this.ngZone.run(() => this.router.navigateByUrl('/home'))
+    })
+    this._loginService.getTeacherList().subscribe((res)=>{
+      this.teacherList = res
     })
   }
   changeCount(number: number) {

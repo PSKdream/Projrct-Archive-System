@@ -93,9 +93,7 @@
                     <div class="input-group">
                         <select class="form-select " id="inputGroupSelect01" formControlName="advisor_name" required
                             [ngClass]="{'is-invalid': submit_form.get('advisor_name').errors?.required && submit_form.get('advisor_name').touched}">
-                            <option value="t1">จารย์หนึ่งคงกระพัน</option>
-                            <option value="t2">จารย์สองเหล็กไหล</option>
-                            <option value="t3">จารย์สามสองสิบแปด</option>
+                            <option [value]="item._id" *ngFor='let item of teacherList'>{{item.firstname+' '+item.lastname}}</option>
                         </select>
                         <!-- {{submit_form.get('advisor_name').value}} -->
                     </div>

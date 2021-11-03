@@ -15,7 +15,7 @@ const multer = Multer({
 
 const db = admin.firestore();
 const bucket = getStorage().bucket();
-// const usersDb = db.collection('users');
+const usersDb = db.collection('users');
 const projectDb = db.collection('projects');
 
 //Mail
@@ -40,6 +40,7 @@ apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => 
         }
         let data = JSON.parse(req.body.dataProject)
         data['approve'] = false
+        data['advisor_name'] = db.doc('users/'+data['advisor_name'])
 
         let _id = await projectDb.add(data)
             .then((docRef) => {
@@ -172,7 +173,15 @@ apiRoute.route('/project/:_id').get(async (req, res, next) => {
     try {
         // console.log(req.params._id);
         let data = await projectDb.doc(req.params._id).get();
-        res.json(data.data());
+        data = data.data()
+        let temp = await data.advisor_name.get()
+        data.advisor_name = {
+            '_id' : temp.id,
+            "firstname": temp.data().firstname,
+            "lastname": temp.data().lastname,
+        }
+        // console.log(data);
+        res.json(data);
     } catch (error) {
         return next(error.status);
     }

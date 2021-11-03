@@ -51,8 +51,10 @@
         </label>
     </app-reset-password> -->
     <!-- {{content}} -->
-    <app-user-management *ngIf="content == 'user-management'"></app-user-management>
-    <app-project-list *ngIf="content == 'project'"></app-project-list>
+    <app-dashboard *ngIf="content === 'admin'"></app-dashboard>
+    <app-user-management *ngIf="content === 'user-management'"></app-user-management>
+    <app-project-list *ngIf="content === 'project'"></app-project-list>
+    <app-project-detail *ngIf="content === 'project-detail'" [_idInput]='projectDetail' ></app-project-detail>
 
 </div>
 
