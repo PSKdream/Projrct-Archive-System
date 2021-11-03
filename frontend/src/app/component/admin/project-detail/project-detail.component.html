@@ -39,7 +39,10 @@
     </div>
     <div class="mt-2">
         <h6>สถานะ</h6>
-        <button type="button" class="btn btn-secondary" (click)="handleClick()" >approve</button>
+        <p>{{data.approve}}</p>
+        <button type="button" class="btn btn-secondary" (click)="handleClick()" 
+        *ngIf = "!data.approve">approve</button>
+
     </div>
 
     <!-- <div  class="mt-2">

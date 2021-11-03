@@ -13,6 +13,7 @@ export class projectAttribute {
   course!: String;
   developNames!: Array<any>;
   abstract!: String;
+  approve!: boolean;
 }
 
 @Component({
@@ -30,13 +31,15 @@ export class ProjectDetailComponent implements OnInit {
     project_type: "",
     course: "",
     developNames: [],
-    abstract: ""
+    abstract: "",
+    approve: false
   }
    _id:string;
   urlFile:any
   constructor(private route: ActivatedRoute,public sanitizer: DomSanitizer, private _projectService: ProjectService) {
     this._id = String(this.route.snapshot.paramMap.get("id"));
     this._projectService.getDetail(this._id).subscribe((res) => {
+      console.log(res);
       this.data = res
     })
     this._projectService.getUrlFile(this._id).subscribe((res)=>{
