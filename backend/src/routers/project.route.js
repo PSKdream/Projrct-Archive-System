@@ -76,14 +76,66 @@ apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => 
             else
                 res.status(200).json('upload complete')
         });
-
-
-
     } catch (error) {
         return next(error);
     }
 })
 
+apiRoute.route('/update/:_id').put(multer.single('file'), async (req, res, next) => {
+    try {
+        let _id = req.params._id
+        if (req.file.mimetype !== "application/pdf") {
+            res.status(415).json('Unsupported Media Type')
+            return
+        }
+        let data = JSON.parse(req.body.dataProject)
+        data['approve'] = false
+        
+        const folder = 'fileProject'
+        const filename = `${folder}/${_id}`
+        // console.log(filename);
+
+        await getStorage().bucket().file(filename).delete()
+
+        await projectDb.doc(_id).update(data)
+
+        const fileUpload = bucket.file(filename)
+        const blobStream = fileUpload.createWriteStream({
+            metadata: {
+                contentType: req.file.mimetype
+            }
+        })
+
+        blobStream.on('error', (err) => {
+            res.status(405).json(err)
+        })
+        blobStream.end(req.file.buffer)
+
+        let mailOptions = {
+            from: 'project-achive@pim.ac.th',                // sender
+            to: `${data.developNames[0].ID}@stu.pim.ac.th`,                // list of receivers
+            subject: 'Confirm submit project',              // Mail subject
+            html: `<b>You can edit submit <a href="http://localhost:4200/project-update/${_id}"><u>click</u></a></b>`   // HTML body
+        };
+        transporter.sendMail(mailOptions, function (err, info) {
+            if (err)
+                res.status(400).json(err)
+            else
+                res.status(200).json('upload complete')
+        });
+    } catch (error) {
+        return next(error);
+    }
+})
+
+apiRoute.route('/approve').put(async(req,res,next)=>{
+try {
+    await projectDb.doc(req.body._id).update({'approve':req.body.approve})
+    res.status(200).json('update complete')
+} catch (error) {
+    return next(error);
+}
+})
 apiRoute.route('/project').get(async (req, res, next) => {
     try {
         let data = await projectDb.get();
@@ -129,32 +181,4 @@ apiRoute.route('/fileProject/:id').get(async (req, res, next) => {
     }
 })
 
-apiRoute.route('/sent-mail').get(async (req, res, next) => {
-    try {
-        let mailOptions = {
-            from: 'project-achive@pim.ac.th',                // sender
-            to: 'dram-1234567@hotmail.com',                // list of receivers
-            subject: 'Hello from sender',              // Mail subject
-            html: '<b>Do you receive this mail?</b>'   // HTML body
-        };
-        transporter.sendMail(mailOptions, function (err, info) {
-            if (err)
-                console.log(err)
-            else
-                console.log(info);
-        });
-        res.json('test')
-    } catch (error) {
-        return next(error);
-    }
-})
-// https://firebasestorage.googleapis.com/v0/b/project-archive-system.appspot.com/o/Resume.pdf?alt=media
-
-// app.post('/asset', function(request, response){
-//     var tempFile="/home/applmgr/Desktop/123456.pdf";
-//     fs.readFile(tempFile, function (err,data){
-//        response.contentType("application/pdf");
-//        response.send(data);
-//     });
-//   });
 module.exports = apiRoute;
