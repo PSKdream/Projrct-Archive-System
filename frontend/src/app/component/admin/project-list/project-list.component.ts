@@ -9,6 +9,7 @@ import { ProjectService } from '../../../service/project/project.service';
 export class ProjectListComponent implements OnInit {
 
   dataProjectList:any;
+
   constructor( private _ProjectService: ProjectService ) {}
 
   ngOnInit(): void {

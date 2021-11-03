@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../service/project/project.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import { subscribeOn } from 'rxjs/operators';
 export class projectAttribute {
   project_nameTH!: String;
   project_nameEng!: String;
@@ -31,17 +32,19 @@ export class ProjectDetailComponent implements OnInit {
     developNames: [],
     abstract: ""
   }
+   _id:string;
   urlFile:any
   constructor(private route: ActivatedRoute,public sanitizer: DomSanitizer, private _projectService: ProjectService) {
-    let _id = String(this.route.snapshot.paramMap.get("id"));
-    this._projectService.getDetail(_id).subscribe((res) => {
+    this._id = String(this.route.snapshot.paramMap.get("id"));
+    this._projectService.getDetail(this._id).subscribe((res) => {
       this.data = res
     })
-    this._projectService.getUrlFile(_id).subscribe((res)=>{
+    this._projectService.getUrlFile(this._id).subscribe((res)=>{
       // this.urlFile = res[0]
       this.urlFile= this.sanitizer.bypassSecurityTrustResourceUrl(res[0]);
       console.log(this.urlFile);
     })
+
   }
 
   ngOnInit(): void {
@@ -51,5 +54,11 @@ export class ProjectDetailComponent implements OnInit {
   ngAfterContentInit() {
     console.log('111', this.data);
   }
+
+  handleClick() { 
+    this._projectService.approve({'_id':this._id,'approve':true}).subscribe((res)=>{
+      console.log(res);
+    })
+  } 
 
 }
