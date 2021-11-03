@@ -11,7 +11,7 @@ export class projectAttribute {
   project_type!: String;
   course!: String;
   developNames!: Array<any>;
-  abstract!: String;
+  abstract!: String; 
 }
 @Injectable({
   providedIn: 'root'

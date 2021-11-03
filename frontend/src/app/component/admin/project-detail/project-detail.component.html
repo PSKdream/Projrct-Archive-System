@@ -37,6 +37,20 @@
         <h6>ที่เก็บซอร์สโค้ด</h6>
         <p>{{data.sorec_code}}</p>
     </div>
+    <div class="mt-2">
+        <h6>สถานะ</h6>
+        <div *ngIf="data.approve">
+            <p>อนุมัติแล้ว</p>
+        </div>
+        <div *ngIf="!data.approve">
+            <p>กำลังรอการอนุมัติ</p>
+        </div>
+        
+        <button type="button" class="btn btn-secondary" (click)="handleClick()" 
+        *ngIf = "!data.approve">approve</button>
+
+    </div>
+
     <!-- <div  class="mt-2">
         <h6>Download</h6>
     </div> -->
