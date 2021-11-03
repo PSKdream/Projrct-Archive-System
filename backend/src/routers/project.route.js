@@ -15,7 +15,7 @@ const multer = Multer({
 
 const db = admin.firestore();
 const bucket = getStorage().bucket();
-const usersDb = db.collection('users');
+// const usersDb = db.collection('users');
 const projectDb = db.collection('projects');
 
 //Mail
@@ -136,6 +136,22 @@ try {
     return next(error);
 }
 })
+
+apiRoute.route('/delete-project/:_id').delete(async(req, res, next)=>{
+    try {
+        let _id = req.params._id
+        const folder = 'fileProject'
+        const filename = `${folder}/${_id}`
+        await getStorage().bucket().file(filename).delete()
+        await projectDb.doc(_id).delete()
+
+        res.status(200).json('delete complete')
+    } catch (error) {
+        return next(error);
+    }
+})
+
+
 apiRoute.route('/project').get(async (req, res, next) => {
     try {
         let data = await projectDb.get();
@@ -152,7 +168,6 @@ apiRoute.route('/project').get(async (req, res, next) => {
         return next(error.status);
     }
 })
-
 apiRoute.route('/project/:_id').get(async (req, res, next) => {
     try {
         // console.log(req.params._id);

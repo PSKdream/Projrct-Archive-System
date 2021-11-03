@@ -38,16 +38,16 @@
         <p>{{data.sorec_code}}</p>
     </div>
     <div class="mt-2">
-        <h6>สถานะ</h6>
-        <div *ngIf="data.approve">
-            <p>อนุมัติแล้ว</p>
+        <div class="">
+            <h6>สถานะ</h6>
+            <p *ngIf="data.approve">อนุมัติแล้ว</p>
+            <p *ngIf="!data.approve">กำลังรอการอนุมัติ</p>
         </div>
-        <div *ngIf="!data.approve">
-            <p>กำลังรอการอนุมัติ</p>
-        </div>
-        
-        <button type="button" class="btn btn-secondary" (click)="handleClick()" 
-        *ngIf = "!data.approve">approve</button>
+     
+
+        <button type="button" class="btn btn-secondary" (click)="handleClick()" *ngIf="!data.approve">approve</button>
+
+        <button type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
 
     </div>
 

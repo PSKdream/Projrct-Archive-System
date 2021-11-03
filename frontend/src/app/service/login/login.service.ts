@@ -8,7 +8,7 @@ export class addAccount {
   password!: String;
   firstname!: String;
   lastname!: String;
-  role!: String;
+  role!: String; 
 }
 export class loginAccount {
   username!: String;

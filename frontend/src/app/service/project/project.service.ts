@@ -39,7 +39,13 @@ export class ProjectService {
         catchError(this.handleError)
       )
   }
-
+  delete(_id:string){
+    let API_URL = `${this.Rest_API}/delete-project/${_id}`;
+    return this.httpClient.delete(API_URL,{headers: this.httpHeaders})
+      .pipe(
+      catchError(this.handleError)
+      )
+  }
   approve(data:any){
     let API_URL = `${this.Rest_API}/approve`;
     return this.httpClient.put(API_URL,data,{headers: this.httpHeaders})
