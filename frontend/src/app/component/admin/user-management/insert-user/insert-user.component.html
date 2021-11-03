@@ -65,22 +65,6 @@
                         </select>
                         <small *ngIf="bioSection.get('role').errors && bioSection.get('role').touched " 
                         class="text-danger">advisor-name is required</small>
-                        <!-- <div formArrayName="developNames" class="row">
-                            <div class="row m-0 p-0">
-                                <div class="col-4">
-                                    <input type="text" class="form-control mt-2" formControlName="ID" required
-                                        placeholder="ID">
-                                    <small class="text-danger">กรุณาใส่รหัสนักศึกษาของคุณ</small>
-                                </div>
-                                <div class="col-4">
-                                    <input type="text" class="form-control mt-2" formControlName="firstname" required
-                                        placeholder="Firstname"
-                                        [ngClass]="{'is-invalid' : item.get('firstname').errors?.required && item.get('firstname').touched}">
-                                    <small *ngIf="item.get('firstname').errors && item.get('firstname').touched "
-                                        class="text-danger">กรุณาใส่ชื่อของคุณ</small>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
                 <div class="row">

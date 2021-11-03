@@ -29,19 +29,27 @@
                         <div class="mb-3">
                             <input readonly type="username" class="form-control" id="inputUsername"
                                 formControlName="username">
+                            <small  *ngIf="formSection.get('username').errors && formSection.get('username').touched " class="text-danger">
+                                everything is required</small>
                         </div>
                         <div class="mb-3">
                             <input type="firstname" class="form-control" id="inputFirstname "
                                 formControlName="firstname">
+                            <small  *ngIf="formSection.get('firstname').errors && formSection.get('firstname').touched " class="text-danger">
+                                everything is required</small>
                         </div>
                         <div class="mb-3">
                             <input type="lastname" class="form-control" id="inputLastname" formControlName="lastname">
+                            <small  *ngIf="formSection.get('lastname').errors && formSection.get('lastname').touched " class="text-danger">
+                                everything is required</small>
                         </div>
                         <select class="form-select dropdown-toggle" type="button" formControlName="role">
                             <option value="student">Student</option>
                             <option value="teacher">Teacher</option>
                             <option value="admin">Admin</option>
                         </select>
+                        <small *ngIf="formSection.get('role').errors && formSection.get('role').touched " 
+                        class="text-danger">everything is required</small>
                     </div>
                 </div>
                 <div class="row">
