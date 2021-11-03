@@ -72,6 +72,7 @@
                                 <label for="inputLastname" class="col-form-label br-row">Lastname</label>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <div class="col-8">
                             <div class="mb-3">
                                 <input type="lastname" class="form-control" id="inputLastname"
@@ -97,6 +98,15 @@
                             <small *ngIf="bioSection.get('role').errors && bioSection.get('role').touched "
                                 class="text-danger">advisor-name is required</small>
                         </div>
+=======
+                        <select class="form-select dropdown-toggle" type="button" formControlName="role">
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <small *ngIf="bioSection.get('role').errors && bioSection.get('role').touched " 
+                        class="text-danger">advisor-name is required</small>
+>>>>>>> 61298d35a5cacce794c26c8316c519a9d6a0939e
                     </div>
                 </div>
                 <div class="row">
