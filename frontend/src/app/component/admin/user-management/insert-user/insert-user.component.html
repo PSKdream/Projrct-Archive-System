@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="mb-3 text-end">
-                                <label for="inputUsername" class="col-form-label br-row">Username{{bioSection.get('firstname').touched}}</label>
+                                <label for="inputUsername" class="col-form-label br-row">Username</label>
                             </div>
                         </div>
                         <div class="col-8">
@@ -26,8 +26,6 @@
                                 <small *ngIf="bioSection.get('username').errors && bioSection.get('username').touched "
                                     class="text-danger">
                                     กรุณาใส่ username ของคุณ</small>
-                                <!-- <small *ngIf="submit_form.get('abstract').errors && submit_form.get('abstract').touched " class="text-danger">
-                                    กรุณาใส่บอทคัดย่อของคุณ</small> -->
                             </div>
                         </div>
                     </div>
@@ -35,7 +33,6 @@
                         <div class="col-4">
                             <div class="mb-3 text-end">
                                 <label for="inputPassword" class="col-form-label br-row">Password</label>
-                                <!-- <p class="m-0" *ngIf='(bioSection.value.password.length < 8)'><br><br></p> -->
                             </div>
                         </div>
                         <div class="col-8">
@@ -72,7 +69,6 @@
                                 <label for="inputLastname" class="col-form-label br-row">Lastname</label>
                             </div>
                         </div>
-<<<<<<< HEAD
                         <div class="col-8">
                             <div class="mb-3">
                                 <input type="lastname" class="form-control" id="inputLastname"
@@ -98,15 +94,6 @@
                             <small *ngIf="bioSection.get('role').errors && bioSection.get('role').touched "
                                 class="text-danger">advisor-name is required</small>
                         </div>
-=======
-                        <select class="form-select dropdown-toggle" type="button" formControlName="role">
-                            <option value="student">Student</option>
-                            <option value="teacher">Teacher</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                        <small *ngIf="bioSection.get('role').errors && bioSection.get('role').touched " 
-                        class="text-danger">advisor-name is required</small>
->>>>>>> 61298d35a5cacce794c26c8316c519a9d6a0939e
                     </div>
                 </div>
                 <div class="row">
