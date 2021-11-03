@@ -11,24 +11,17 @@
                     <th scope="col-4">Project name</th>
                     <th scope="col-4"> Name</th>
                     <td scope="col-2" class="text-center">Status</td>
-                    <td scope="col-2" class="text-center">Action</td>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of dataProjectList;" >
+                <tr class="pointer" [routerLink]="['/project-detail/'+item._id]" *ngFor="let item of dataProjectList;" >
                     <th scope="row">{{item.project_nameTH}}</th>
                     <td> <ul>
-                        <li class="list-name"  *ngFor="let name_develop of item.developNames; ">
+                        <li class="list-name" *ngFor="let name_develop of item.developNames; ">
                             {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
                         </li>
                     </ul></td>
-                    <td  class="text-center">อนุมัติแล้ว {{item._id}}</td>
-                    <td>
-                        <i class="bi bi-archive-fill" 
-                        style="cursor: pointer; color: #000000"
-                        [routerLink]="['/project-detail/'+item._id]"
-                        ></i>
-                    </td>
+                    <td  class="text-center">อนุมัติแล้ว</td>
                 </tr>
             </tbody>
         </table>
