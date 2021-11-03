@@ -34,6 +34,11 @@ export class InsertUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setVariableDefault(){
+    this.bioSection.reset(this.bioSection.value)
+    this.bioSection.reset(this.bioSection.touched)
+  }
+
   submitUser() {
     // console.log(this.bioSection.value);
     if (this.bioSection.value.password.length < 8) {
@@ -62,13 +67,7 @@ export class InsertUserComponent implements OnInit {
 
     this._LoginService.addUser(data).subscribe(() => {
       this.closeModel.nativeElement.click();
-      this.bioSection.setValue({
-        username: '',
-        password: '',
-        firstname: '',
-        lastname: '',
-        role: '',
-      })
+      this.setVariableDefault()
       this.onDone.emit("Done")
     }, (error) => {
       this.textAlert = "Error code : "+error.status+" ("+error.statusText+")"
