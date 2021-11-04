@@ -9,7 +9,8 @@ import { ProjectService } from '../../../service/project/project.service';
 export class ProjectListComponent implements OnInit {
 
   dataProjectList:any;
-  constructor( private _ProjectService: ProjectService ) {}
+
+  constructor( private _ProjectService: ProjectService) {}
 
   ngOnInit(): void {
     this._ProjectService.getProject().subscribe((res) =>{
@@ -18,5 +19,6 @@ export class ProjectListComponent implements OnInit {
     })
     // console.log("project",this.dataProjectList);
   }
+
 
 }

@@ -2,6 +2,7 @@ const express = require("express");
 const Multer = require('multer');
 const admin = require("firebase-admin");
 const { getStorage } = require('firebase-admin/storage');
+const nodemailer = require('nodemailer');
 const { firestore } = require("firebase-admin");
 
 const apiRoute = express.Router();
@@ -13,11 +14,18 @@ const multer = Multer({
 })
 
 const db = admin.firestore();
-
 const bucket = getStorage().bucket();
-
 const usersDb = db.collection('users');
 const projectDb = db.collection('projects');
+
+//Mail
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'norrapat.kammonn@gmail.com', // your email
+        pass: '0844650132' // your email password
+    }
+});
 
 
 apiRoute.route('/test').get((req, res, next) => {
@@ -25,17 +33,18 @@ apiRoute.route('/test').get((req, res, next) => {
 })
 apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => {
     try {
+
         if (req.file.mimetype !== "application/pdf") {
             res.status(415).json('Unsupported Media Type')
             return
         }
         let data = JSON.parse(req.body.dataProject)
         data['approve'] = false
-        let _id = await projectDb.add(JSON.parse(req.body.data))
-            .then((docRef) => {
-                // console.log("Document written with ID: ", docRef.id);
-                return docRef.id
+        data['advisor_name'] = db.doc('users/'+data['advisor_name'])
 
+        let _id = await projectDb.add(data)
+            .then((docRef) => {
+                return docRef.id
             })
             .catch((error) => {
                 console.error("Error adding document: ", error);
@@ -43,7 +52,6 @@ apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => 
         const folder = 'fileProject'
         const filename = `${folder}/${_id}`
         const fileUpload = bucket.file(filename)
-        // console.log(req);
         const blobStream = fileUpload.createWriteStream({
             metadata: {
                 contentType: req.file.mimetype
@@ -53,16 +61,97 @@ apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => 
         blobStream.on('error', (err) => {
             res.status(405).json(err)
         })
-
-        blobStream.on('finish', (err) => {
-            res.status(200).json('upload complete')
-        })
         blobStream.end(req.file.buffer)
-
+        // blobStream.on('finish', (err) => {
+        //     res.status(200).json('upload complete')
+        // })
+        let mailOptions = {
+            from: 'project-achive@pim.ac.th',                // sender
+            to: `${data.developNames[0].ID}@stu.pim.ac.th`,                // list of receivers
+            subject: 'Confirm submit project',              // Mail subject
+            html: `<b>You can edit submit <a href="http://localhost:4200/project-update/${_id}"><u>click</u></a></b>`   // HTML body
+        };
+        transporter.sendMail(mailOptions, function (err, info) {
+            if (err)
+                res.status(400).json(err)
+            else
+                res.status(200).json('upload complete')
+        });
     } catch (error) {
         return next(error);
     }
 })
+
+apiRoute.route('/update/:_id').put(multer.single('file'), async (req, res, next) => {
+    try {
+        let _id = req.params._id
+        if (req.file.mimetype !== "application/pdf") {
+            res.status(415).json('Unsupported Media Type')
+            return
+        }
+        let data = JSON.parse(req.body.dataProject)
+        data['approve'] = false
+        
+        const folder = 'fileProject'
+        const filename = `${folder}/${_id}`
+        // console.log(filename);
+
+        await getStorage().bucket().file(filename).delete()
+
+        await projectDb.doc(_id).update(data)
+
+        const fileUpload = bucket.file(filename)
+        const blobStream = fileUpload.createWriteStream({
+            metadata: {
+                contentType: req.file.mimetype
+            }
+        })
+
+        blobStream.on('error', (err) => {
+            res.status(405).json(err)
+        })
+        blobStream.end(req.file.buffer)
+
+        let mailOptions = {
+            from: 'project-achive@pim.ac.th',                // sender
+            to: `${data.developNames[0].ID}@stu.pim.ac.th`,                // list of receivers
+            subject: 'Confirm submit project',              // Mail subject
+            html: `<b>You can edit submit <a href="http://localhost:4200/project-update/${_id}"><u>click</u></a></b>`   // HTML body
+        };
+        transporter.sendMail(mailOptions, function (err, info) {
+            if (err)
+                res.status(400).json(err)
+            else
+                res.status(200).json('upload complete')
+        });
+    } catch (error) {
+        return next(error);
+    }
+})
+
+apiRoute.route('/approve').put(async(req,res,next)=>{
+try {
+    await projectDb.doc(req.body._id).update({'approve':req.body.approve})
+    res.status(200).json('update complete')
+} catch (error) {
+    return next(error);
+}
+})
+
+apiRoute.route('/delete-project/:_id').delete(async(req, res, next)=>{
+    try {
+        let _id = req.params._id
+        const folder = 'fileProject'
+        const filename = `${folder}/${_id}`
+        await getStorage().bucket().file(filename).delete()
+        await projectDb.doc(_id).delete()
+
+        res.status(200).json('delete complete')
+    } catch (error) {
+        return next(error);
+    }
+})
+
 
 apiRoute.route('/project').get(async (req, res, next) => {
     try {
@@ -80,12 +169,19 @@ apiRoute.route('/project').get(async (req, res, next) => {
         return next(error.status);
     }
 })
-
 apiRoute.route('/project/:_id').get(async (req, res, next) => {
     try {
         // console.log(req.params._id);
         let data = await projectDb.doc(req.params._id).get();
-        res.json(data.data());
+        data = data.data()
+        let temp = await data.advisor_name.get()
+        data.advisor_name = {
+            '_id' : temp.id,
+            "firstname": temp.data().firstname,
+            "lastname": temp.data().lastname,
+        }
+        // console.log(data);
+        res.json(data);
     } catch (error) {
         return next(error.status);
     }
@@ -108,13 +204,5 @@ apiRoute.route('/fileProject/:id').get(async (req, res, next) => {
         return next(error);
     }
 })
-// https://firebasestorage.googleapis.com/v0/b/project-archive-system.appspot.com/o/Resume.pdf?alt=media
 
-// app.post('/asset', function(request, response){
-//     var tempFile="/home/applmgr/Desktop/123456.pdf";
-//     fs.readFile(tempFile, function (err,data){
-//        response.contentType("application/pdf");
-//        response.send(data);
-//     });
-//   });
 module.exports = apiRoute;

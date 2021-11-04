@@ -16,9 +16,13 @@ export class LoginComponent implements OnInit {
   faUser = faUser;
 
   bioSection = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('',Validators.required),
+    password: new FormControl('',[Validators.required,Validators.minLength(8)])
   });
+  clicksub() {
+    console.log(this.bioSection.value);
+    this.bioSection.reset();
+  }
   constructor(private _loginService: LoginService, private router: Router,
     private ngZone: NgZone) { }
   ngOnInit() {

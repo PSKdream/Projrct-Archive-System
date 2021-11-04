@@ -17,6 +17,10 @@ import { ResetPasswordComponent } from './component/admin/user-management/reset-
 import { ProjectListComponent } from './component/admin/project-list/project-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProjectDetailComponent } from './component/admin/project-detail/project-detail.component';
+import { EditFormComponent } from './component/edit-form/edit-form.component';
+import { DashboardComponent } from './component/admin/dashboard/dashboard.component';
+import { ChartModule } from 'angular2-chartjs';
+import { UserNevbarComponent } from './component/user-nevbar/user-nevbar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import { ProjectDetailComponent } from './component/admin/project-detail/project
     InsertUserComponent,
     ResetPasswordComponent,
     ProjectListComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    EditFormComponent,
+    DashboardComponent,
+    UserNevbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,8 @@ import { ProjectDetailComponent } from './component/admin/project-detail/project
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

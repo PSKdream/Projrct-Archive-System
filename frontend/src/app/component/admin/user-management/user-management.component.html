@@ -26,7 +26,7 @@
                         <app-reset-password [itemData]="item" (onDone)="onDone($event)"><i class="bi bi-key text-warning fs-5"></i></app-reset-password>
                         <app-edit-user class="ms-3" [itemData]="item" (onDone)="onDone($event)"></app-edit-user>
                         <i class="bi bi-trash ms-3" style="cursor: pointer; color: #ff968a"
-                            (click)="onDelete(item._id)"></i>
+                            (click)="onDelete(item._id)" *ngIf = "!item.delete"></i>
                     </td>
 
                 </tr>

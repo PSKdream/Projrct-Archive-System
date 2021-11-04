@@ -10,12 +10,23 @@
             </div>
             <form class="mt-4  ps-3 pe-3 " [formGroup]="bioSection" (ngSubmit)="callingFunction()">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Username"
-                        formControlName="username">
+                    <input type="text" class="form-control" id="inputUsername" placeholder="Username" required
+                    [ngClass]="{'is-invalid': bioSection.get('username').errors?.required && 
+                    bioSection.get('username').touched}"
+                     formControlName="username">
+                    <!-- {{bioSection.get('username').value}} -->
+                    <small *ngIf="bioSection.get('username').errors && bioSection.get('username').touched" class="text-danger">
+                        username is required</small>
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password"
-                        formControlName="password">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" required
+                    [ngClass]="(bioSection.get('password').touched || 
+                    bioSection.get('password').dirty) &&
+                    bioSection.get('password').errors ? 'is-invalid' : ''"
+                    formControlName="password">
+                    <!-- {{bioSection.get('password').value}} -->
+                    <small *ngIf="bioSection.get('password').errors && bioSection.get('password').touched" class="text-danger">
+                        Password is Required(minimum length 8)</small>
                 </div>
                 <div>
                     <p class="text-light">{{loginFail}}</p>

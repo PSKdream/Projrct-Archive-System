@@ -11,7 +11,7 @@ export class projectAttribute {
   project_type!: String;
   course!: String;
   developNames!: Array<any>;
-  abstract!: String;
+  abstract!: String; 
 }
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,28 @@ export class ProjectService {
     return this.httpClient.post(API_URL, file)
       .pipe(
         catchError(this.handleError)
+      )
+  }
+
+  update(file: any,_id:string): Observable<any> {
+    let API_URL = `${this.Rest_API}/update/${_id}`; //"https://file.io"
+    return this.httpClient.put(API_URL, file)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+  delete(_id:string){
+    let API_URL = `${this.Rest_API}/delete-project/${_id}`;
+    return this.httpClient.delete(API_URL,{headers: this.httpHeaders})
+      .pipe(
+      catchError(this.handleError)
+      )
+  }
+  approve(data:any){
+    let API_URL = `${this.Rest_API}/approve`;
+    return this.httpClient.put(API_URL,data,{headers: this.httpHeaders})
+      .pipe(
+      catchError(this.handleError)
       )
   }
 

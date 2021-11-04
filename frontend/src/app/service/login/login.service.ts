@@ -8,7 +8,7 @@ export class addAccount {
   password!: String;
   firstname!: String;
   lastname!: String;
-  role!: String;
+  role!: String; 
 }
 export class loginAccount {
   username!: String;
@@ -52,6 +52,11 @@ export class LoginService {
 
   getUserList() {
     let API_URL = `${this.Rest_API}/get-user`;
+    return this.httpClient.get(`${API_URL}`)
+  }
+
+  getTeacherList(): Observable<any>  {
+    let API_URL = `${this.Rest_API}/get-teacher`;
     return this.httpClient.get(`${API_URL}`)
   }
 

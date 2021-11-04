@@ -116,5 +116,24 @@ apiRoute.route('/get-user').get(async (req, res, next) => {
     }
 })
 
+apiRoute.route('/get-teacher').get(async(req,res,next) =>{
+    try {
+        let data = await usersDb.where('role','==','Teacher').get();
+
+        let tempDict = []
+        data.forEach(doc => {
+            let tempData = doc.data()
+            tempDict.push({
+                '_id': doc.id,
+                'firstname': tempData.firstname,
+                'lastname' : tempData.lastname
+            })
+        });
+        res.json(tempDict);
+    } catch (error) {
+        return next(error.status);
+    }
+})
+
 
 module.exports = apiRoute;

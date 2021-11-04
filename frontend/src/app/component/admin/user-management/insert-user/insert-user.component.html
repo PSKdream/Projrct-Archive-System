@@ -1,6 +1,5 @@
 <div>
-    <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-        data-bs-target="#exampleModal" >
+    <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add user
     </button>
 </div>
@@ -10,48 +9,91 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Insert User</h5>
-                <button #closeModel type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button #closeModel type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="setVariableDefault()"></button>
             </div>
             <form [formGroup]=bioSection (ngSubmit)="submitUser()">
-                <div class="modal-body row">
-                    <div class="col-4 row justify-content-end">
-                        <div class="mb-3 text-end">
-                            <label for="inputUsername" class="col-form-label br-row">Username</label>
+                <div class="modal-body row me-2">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3 text-end">
+                                <label for="inputUsername" class="col-form-label br-row">Username</label>
+                            </div>
                         </div>
-                        <div class="mb-3 text-end">
-                            <label for="inputPassword" class="col-form-label br-row">Password</label>
-                            <p class="m-0" *ngIf='(bioSection.value.password.length < 8)'><br><br></p>
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <input type="username" class="form-control" id="inputUsername"
+                                    formControlName="username">
+                                <small *ngIf="bioSection.get('username').errors && bioSection.get('username').touched "
+                                    class="text-danger">
+                                    กรุณาใส่ username ของคุณ</small>
+                            </div>
                         </div>
-                        <div class="mb-3 text-end">
-                            <label for="inputFirstname" class="col-form-label br-row">Firstname</label>
-                        </div>
-                        <div class="mb-3 text-end">
-                            <label for="inputLastname" class="col-form-label br-row">Lastname</label>
-                        </div>
-
-                        <label for="inputrole" class="col-form-label text-end">Role </label>
                     </div>
-                    <div class="col-8">
-                        <div class="mb-3">
-                            <input type="username" class="form-control" id="inputUsername" formControlName="username">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3 text-end">
+                                <label for="inputPassword" class="col-form-label br-row">Password</label>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" id="inputPassword" formControlName="password">
-                            <p class="text-danger" *ngIf='(bioSection.value.password.length < 8)'>Your password must be
-                                8-20 characters long</p>
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <input type="password" class="form-control" id="inputPassword" [ngClass]="(bioSection.get('password').touched || 
+                                    bioSection.get('password').dirty) &&
+                                    bioSection.get('password').errors ? 'is-invalid' : ''" formControlName="password">
+                                <small *ngIf="bioSection.get('password').errors && bioSection.get('password').touched "
+                                    class="text-danger">
+                                    กรุณาใส่บอทคัดย่อของคุณ</small>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <input type="firstname" class="form-control" id="inputFirstname "
-                                formControlName="firstname">
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3 text-end">
+                                <label for="inputFirstname" class="col-form-label br-row">Firstname</label>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <input type="lastname" class="form-control" id="inputLastname" formControlName="lastname">
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <input type="firstname" class="form-control" id="inputFirstname "
+                                    formControlName="firstname">
+                                <small
+                                    *ngIf="bioSection.get('firstname').errors && bioSection.get('firstname').touched "
+                                    class="text-danger">
+                                    กรุณาใส่บอทคัดย่อของคุณ</small>
+                            </div>
                         </div>
-                        <select class="form-select dropdown-toggle" type="button" formControlName="role">
-                            <option value="student">Student</option>
-                            <option value="teacher">Teacher</option>
-                            <option value="admin">Admin</option>
-                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3 text-end">
+                                <label for="inputLastname" class="col-form-label br-row">Lastname</label>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <input type="lastname" class="form-control" id="inputLastname"
+                                    formControlName="lastname">
+                                <small *ngIf="bioSection.get('lastname').errors && bioSection.get('lastname').touched "
+                                    class="text-danger">
+                                    กรุณาใส่บอทคัดย่อของคุณ</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3 text-end">
+                                <label for="inputrole" class="col-form-label text-end">Role </label>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-select dropdown-toggle" type="button" formControlName="role">
+                                <!-- <option value="student">Student</option> -->
+                                <option value="Teacher">Teacher</option>
+                                <option value="Administrator">Administrator</option>
+                            </select>
+                            <small *ngIf="bioSection.get('role').errors && bioSection.get('role').touched "
+                                class="text-danger">advisor-name is required</small>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -61,7 +103,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" 
+                    (click)="setVariableDefault()">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>

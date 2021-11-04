@@ -7,15 +7,20 @@ import { TestComponent } from './component/test/test.component';
 import { ProjectListComponent } from './component/admin/project-list/project-list.component';
 import { SubmitFormComponent } from './component/submit-form/submit-form.component';
 import { ProjectDetailComponent } from './component/admin/project-detail/project-detail.component';
+import { EditFormComponent } from './component/edit-form/edit-form.component';
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'admin/:id', component: AdminComponent },
   { path: 'admin', component: AdminComponent },
+  { path: 'admin/project', component: AdminComponent },
+  { path: 'admin/user-management', component: AdminComponent },
+  { path: 'admin/project-detail/:id', component: AdminComponent },
   { path: 'login', component: LoginComponent },
   { path: 'test', component: TestComponent },
   { path: 'submit', component: SubmitFormComponent },
-  { path: 'projectlist', component: ProjectListComponent },
+  // { path: 'projectlist', component: ProjectListComponent },
   { path: 'project-detail/:id', component: ProjectDetailComponent },
+  { path: 'project-update/:id', component: EditFormComponent },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   

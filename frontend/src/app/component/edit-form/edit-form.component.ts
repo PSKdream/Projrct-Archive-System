@@ -1,15 +1,16 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ProjectService } from '../../service/project/project.service';
 import { LoginService } from '../..//service/login/login.service';
 
+
 @Component({
-  selector: 'app-submit-form',
-  templateUrl: './submit-form.component.html',
-  styleUrls: ['./submit-form.component.scss']
+  selector: 'app-edit-form',
+  templateUrl: './edit-form.component.html',
+  styleUrls: ['./edit-form.component.scss']
 })
-export class SubmitFormComponent implements OnInit {
+export class EditFormComponent implements OnInit {
 
   formData = new FormData();
   submit_form = new FormGroup({
@@ -32,13 +33,30 @@ export class SubmitFormComponent implements OnInit {
   developNames = this.submit_form.get('developNames') as FormArray;
   fileUpload = false;
   fileAlert = '';
+  _id:string
+  data: any
+  approve:boolean
   teacherList = Array()
 
-  constructor(private _projectService: ProjectService,private _loginService :LoginService) {
+  constructor(private _projectService: ProjectService,
+    private route: ActivatedRoute,private _loginService :LoginService, private router: Router, private ngZone: NgZone) {
+      
   }
 
   ngOnInit(): void {
-    // console.log(this.submit_form.value);
+    this._id = String(this.route.snapshot.paramMap.get("id"));
+    this._projectService.getDetail(this._id).subscribe((res) => {
+      console.log(res);
+      if (res === null) {
+        this.ngZone.run(() => this.router.navigateByUrl('/home'))
+      }
+      let temp = res
+      temp.advisor_name = temp.advisor_name._id
+      this.submit_form.patchValue(temp)
+      this.approve = temp.approve
+    }, (err) => {
+      this.ngZone.run(() => this.router.navigateByUrl('/home'))
+    })
     this._loginService.getTeacherList().subscribe((res)=>{
       this.teacherList = res
     })
@@ -64,7 +82,7 @@ export class SubmitFormComponent implements OnInit {
       alert('Please check input')
       return
     }
-    this._projectService.upload(this.formData).subscribe((res) => {
+    this._projectService.update(this.formData,this._id).subscribe((res) => {
       console.log("upload successfully", res);
       alert('OK')
     }, (err) => {
@@ -89,4 +107,5 @@ export class SubmitFormComponent implements OnInit {
       this.fileAlert = 'file is required'
     }
   }
+
 }

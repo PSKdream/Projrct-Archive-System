@@ -11,41 +11,19 @@
                     <th scope="col-4">Project name</th>
                     <th scope="col-4"> Name</th>
                     <td scope="col-2" class="text-center">Status</td>
-                    <td scope="col-2" class="text-center">Action</td>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of dataProjectList;" >
+                <tr class="pointer" [routerLink]="['/admin/project-detail/'+item._id]" *ngFor="let item of dataProjectList;" >
                     <th scope="row">{{item.project_nameTH}}</th>
                     <td> <ul>
-                        <li class="list-name"  *ngFor="let name_develop of item.developNames; ">
+                        <li class="list-name" *ngFor="let name_develop of item.developNames; ">
                             {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
                         </li>
                     </ul></td>
-                    <td  class="text-center">อนุมัติแล้ว {{item._id}}</td>
-                    <td>
-                        <i class="bi bi-archive-fill" 
-                        style="cursor: pointer; color: #000000"
-                        [routerLink]="['/project-detail/'+item._id]"
-                        ></i>
-                    </td>
+                    <td  class="text-center">อนุมัติแล้ว</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-<!-- <tbody>
-    <tr *ngFor="let item of userAccountList; let i = index">
-        <th scope="row">{{i+1}}</th>
-        <td>{{item.firstname+' '+item.lastname}}</td>
-        <td>{{item.role}}</td>
-        <td>
-            <app-reset-password [itemData]="item" (onDone)="onDone($event)"><i class="bi bi-key text-warning fs-5"></i></app-reset-password>
-            <app-edit-user class="ms-3" [itemData]="item" (onDone)="onDone($event)"></app-edit-user>
-            <i class="bi bi-trash ms-3" style="cursor: pointer; color: #ff968a"
-                (click)="onDelete(item._id)"></i>
-        </td>
-
-    </tr>
-</tbody> -->

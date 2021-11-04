@@ -20,6 +20,7 @@ export class UserManagementComponent implements OnInit {
   async getUserList() {
     await this._LoginService.getUserList().subscribe((res) => {
       this.userAccountList = res
+      console.log(res);
     })
   }
 

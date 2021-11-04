@@ -2,7 +2,8 @@ import { Component, OnInit, EventEmitter , ViewChild, ElementRef,Input,Output } 
 import { LoginService } from '../../../../service/login/login.service';
 import {
   FormControl,
-  FormGroup
+  FormGroup,
+  Validators
 } from '@angular/forms';
 
 @Component({
@@ -19,10 +20,10 @@ export class EditUserComponent implements OnInit {
   textAlert = ""
 
   formSection = new FormGroup({
-    username: new FormControl(''),
-    firstname: new FormControl(''),
-    lastname: new FormControl(''),
-    role: new FormControl(''),
+    username: new FormControl('',Validators.required),
+    firstname: new FormControl('',Validators.required),
+    lastname: new FormControl('',Validators.required),
+    role: new FormControl('',Validators.required),
   });
 
   constructor(private _LoginService: LoginService) {

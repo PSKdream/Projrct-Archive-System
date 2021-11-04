@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { LoginService } from '../../../../service/login/login.service';
 import { Md5 } from 'ts-md5/dist/md5';
-import {FormControl,FormGroup} from '@angular/forms';
+import {FormControl,FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-insert-user',
@@ -19,11 +19,11 @@ export class InsertUserComponent implements OnInit {
   textAlert = ""
 
   bioSection = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    firstname: new FormControl(''),
-    lastname: new FormControl(''),
-    role: new FormControl(''),
+    username: new FormControl('',Validators.required),
+    password: new FormControl('',[Validators.required,Validators.minLength(8)]),
+    firstname: new FormControl('',Validators.required),
+    lastname: new FormControl('',Validators.required),
+    role: new FormControl('',Validators.required),
   });
 
 
@@ -32,6 +32,11 @@ export class InsertUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  setVariableDefault(){
+    this.bioSection.reset(this.bioSection.value)
+    this.bioSection.reset(this.bioSection.touched)
   }
 
   submitUser() {
@@ -62,13 +67,7 @@ export class InsertUserComponent implements OnInit {
 
     this._LoginService.addUser(data).subscribe(() => {
       this.closeModel.nativeElement.click();
-      this.bioSection.setValue({
-        username: '',
-        password: '',
-        firstname: '',
-        lastname: '',
-        role: '',
-      })
+      this.setVariableDefault()
       this.onDone.emit("Done")
     }, (error) => {
       this.textAlert = "Error code : "+error.status+" ("+error.statusText+")"
