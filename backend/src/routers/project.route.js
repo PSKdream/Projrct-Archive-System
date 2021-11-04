@@ -171,7 +171,6 @@ apiRoute.route('/project').get(async (req, res, next) => {
 })
 apiRoute.route('/project/:_id').get(async (req, res, next) => {
     try {
-        // console.log(req.params._id);
         let data = await projectDb.doc(req.params._id).get();
         data = data.data()
         let temp = await data.advisor_name.get()

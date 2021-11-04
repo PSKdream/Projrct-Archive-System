@@ -60,6 +60,7 @@ export class ProjectDetailComponent implements OnInit {
       if (this._idInput === undefined)
         this.ngZone.run(() => this.router.navigateByUrl('/home'))
       else
+      console.log(err);
         this.ngZone.run(() => this.router.navigateByUrl('/admin'))
     })
     this._projectService.getUrlFile(this._id).subscribe((res) => {
