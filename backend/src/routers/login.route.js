@@ -1,29 +1,27 @@
 const express = require("express");
-const Multer = require('multer');
-const admin = require("firebase-admin");
-const { getStorage } = require('firebase-admin/storage');
-
 const apiRoute = express.Router();
-const multer = Multer({
-    storage: Multer.memoryStorage(),
-    limits: {
-        fileSize: 5 * 1024 * 1024
-    }
-})
 
+const admin = require("firebase-admin");
 const db = admin.firestore();
-
-const bucket = getStorage().bucket();
-
 const usersDb = db.collection('users');
-const projectDb = db.collection('projects');
 
+const bcrypt = require('bcrypt')
+
+async function hashPassword(password) {
+    const salt = await bcrypt.genSalt(10)
+    const hash = await bcrypt.hash(password, salt)
+    return hash
+}
+async function validatePassword(password, hash) { // updated
+    const isSame = await bcrypt.compare(password, hash) // updated
+    return isSame // updated
+}
 
 apiRoute.route('/validate-login').post(async (req, res, next) => {
     try {
         let username = req.body.username
         let password = req.body.password
-        let data = await usersDb.where("username", "==", username).where("password", "==", password).get()
+        let data = await usersDb.where("username", "==", username).get()
 
         if (data.empty) {
             res.status(401).send('Login Failure')
@@ -31,12 +29,17 @@ apiRoute.route('/validate-login').post(async (req, res, next) => {
         }
 
         let tempDict = null
-        data.forEach(doc => {
+        data.forEach(async(doc) => {
             tempDict = doc.data()
-            delete tempDict.password;
             tempDict['_id'] = doc.id
         });
-        res.json(tempDict);
+        if(await validatePassword(password,tempDict.password)){
+            delete tempDict.password;
+            res.json(tempDict);
+        }else{
+            res.status(401).send('Login Failure')
+        }
+        
     } catch (error) {
         return next(error);
     }
@@ -47,7 +50,7 @@ apiRoute.route('/insert-user').post(async (req, res, next) => {
 
         let data = {
             "username": String(req.body.username),
-            "password": String(req.body.password),
+            "password": await hashPassword(req.body.password),
             "firstname": String(req.body.firstname),
             "lastname": String(req.body.lastname),
             "role": String(req.body.role)
@@ -82,8 +85,9 @@ apiRoute.route('/update-user').put(async (req, res, next) => {
 })
 apiRoute.route('/update-password').put(async (req, res, next) => {
     try {
+        console.log(req.body.password);
         let data = {
-            password: String(req.body.password),
+            password: await hashPassword(req.body.password),
         }
         await usersDb.doc(req.body._id).update(data)
         res.json();
@@ -116,9 +120,9 @@ apiRoute.route('/get-user').get(async (req, res, next) => {
     }
 })
 
-apiRoute.route('/get-teacher').get(async(req,res,next) =>{
+apiRoute.route('/get-teacher').get(async (req, res, next) => {
     try {
-        let data = await usersDb.where('role','==','Teacher').get();
+        let data = await usersDb.where('role', '==', 'Teacher').get();
 
         let tempDict = []
         data.forEach(doc => {
@@ -126,7 +130,7 @@ apiRoute.route('/get-teacher').get(async(req,res,next) =>{
             tempDict.push({
                 '_id': doc.id,
                 'firstname': tempData.firstname,
-                'lastname' : tempData.lastname
+                'lastname': tempData.lastname
             })
         });
         res.json(tempDict);
