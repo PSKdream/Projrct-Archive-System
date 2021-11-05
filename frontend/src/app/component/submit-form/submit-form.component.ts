@@ -88,6 +88,8 @@ export class SubmitFormComponent implements OnInit {
 
   uploadFile(event: any) {
     const file: File = event.target.files[0];
+    let data = this.submit_form.value
+    data.graduation_year = String(data.graduation_year)
     if (file) {
       if (file.type != 'application/pdf') {
         this.fileAlert = 'File type invalid'
@@ -96,7 +98,8 @@ export class SubmitFormComponent implements OnInit {
       this.fileAlert = ''
       this.fileUpload = true;
       this.formData.append("file", file);
-      this.formData.append("dataProject", JSON.stringify(this.submit_form.value));
+
+      this.formData.append("dataProject", JSON.stringify(data));
     } else {
       this.fileAlert = 'File is required'
     }

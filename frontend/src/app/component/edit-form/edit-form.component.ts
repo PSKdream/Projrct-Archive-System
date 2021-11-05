@@ -33,15 +33,15 @@ export class EditFormComponent implements OnInit {
   developNames = this.submit_form.get('developNames') as FormArray;
   fileUpload = false;
   fileAlert = '';
-  _id:string
+  _id: string
   data: any
-  approve:boolean
+  approve: boolean
   teacherList = Array()
   paddingServer = false
 
   constructor(private _projectService: ProjectService,
-    private route: ActivatedRoute,private _loginService :LoginService, private router: Router, private ngZone: NgZone) {
-      
+    private route: ActivatedRoute, private _loginService: LoginService, private router: Router, private ngZone: NgZone) {
+
   }
 
   ngOnInit(): void {
@@ -58,7 +58,7 @@ export class EditFormComponent implements OnInit {
     }, (err) => {
       this.ngZone.run(() => this.router.navigateByUrl('/home'))
     })
-    this._loginService.getTeacherList().subscribe((res)=>{
+    this._loginService.getTeacherList().subscribe((res) => {
       this.teacherList = res
     })
   }
@@ -87,7 +87,7 @@ export class EditFormComponent implements OnInit {
       return
     }
     this.paddingServer = true
-    this._projectService.update(this.formData,this._id).subscribe((res) => {
+    this._projectService.update(this.formData, this._id).subscribe((res) => {
       console.log("upload successfully", res);
       alert('Submit successfully')
       this.paddingServer = false
@@ -101,6 +101,8 @@ export class EditFormComponent implements OnInit {
 
   uploadFile(event: any) {
     const file: File = event.target.files[0];
+    let data = this.submit_form.value
+    data.graduation_year = String(data.graduation_year)
     if (file) {
       if (file.type != 'application/pdf') {
         this.fileAlert = 'File type invalid'
@@ -109,10 +111,10 @@ export class EditFormComponent implements OnInit {
       this.fileAlert = ''
       this.fileUpload = true;
       this.formData.append("file", file);
-      this.formData.append("dataProject", JSON.stringify(this.submit_form.value));
+
+      this.formData.append("dataProject", JSON.stringify(data));
     } else {
       this.fileAlert = 'File is required'
     }
   }
-
 }

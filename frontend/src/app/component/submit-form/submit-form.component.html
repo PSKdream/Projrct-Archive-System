@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group col-6">
                         <label for="graduation-year">ปีที่สำเร็จการศึกษา</label>
-                        <input type="text" class="form-control mt-2" formControlName="graduation_year" required
+                        <input  type="number" min="2540" max="2600" class="form-control mt-2" formControlName="graduation_year" required
                             [ngClass]="{'is-invalid': submit_form.get('graduation_year').errors?.required && submit_form.get('graduation_year').touched}">
                         <small
                             *ngIf="submit_form.get('graduation_year').errors && submit_form.get('graduation_year').touched "
