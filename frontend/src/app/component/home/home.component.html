@@ -4,15 +4,15 @@
     <h2>รายการและสถานะโครงงาน<br>แยกตามหลักสูตรและปีที่สำเร็จการศึกษา</h2>
   </div>
   <div class="accordion mt-5" id="accordionExample">
-    <div class="accordion-item" *ngFor="let year of label; index as i;">
-      <h2 class="accordion-header" [id]="'heading'+year" class="" >
-        <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
+    <div class="accordion-item" *ngFor="let year of label; index as i;" style="border-radius: 10px;">
+      <h2 class="accordion-header" [id]="'heading'+year" class="">
+        <button class="accordion-button collapsed top-button" type="button" data-bs-toggle="collapse"
           [attr.data-bs-target]="'#collapse'+year" aria-expanded="false" [attr.aria-controls]="'#collapse'+year">
-          <div class="col">
+          <div class="col fs-5">
             ปี พ.ศ. {{year}}
           </div>
           <div class="col text-end me-3 ">
-            <label class="border rounded-pill bg-secondary text-light ps-2 pe-2">
+            <label class="border rounded-pill bg-light text-dark ps-2 pe-2">
               {{project[i].length}}
             </label>
           </div>
@@ -31,6 +31,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
