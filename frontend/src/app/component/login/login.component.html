@@ -19,7 +19,7 @@
                         username is required</small>
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="inputPassword" placeholder="Password" required
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" required
                     [ngClass]="(bioSection.get('password').touched || 
                     bioSection.get('password').dirty) &&
                     bioSection.get('password').errors ? 'is-invalid' : ''"
