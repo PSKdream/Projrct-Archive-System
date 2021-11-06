@@ -1,4 +1,4 @@
-<div class="container row justify-content-center">
+<div class="container row justify-content-center mb-5">
     <div class="col-12">
         <div class="mt-5 mb-2 border-bottom btn-toolbar justify-content-between">
             <h3>Project list</h3>
@@ -15,13 +15,13 @@
             </thead>
             <tbody>
                 <tr class="pointer" [routerLink]="['/admin/project-detail/'+item._id]" *ngFor="let item of dataProjectList;" >
-                    <th scope="row">{{item.project_nameTH}}</th>
-                    <td> <ul>
+                    <th scope="row" class="box-top">{{item.project_nameTH}}</th>
+                    <td class="box-top"> <ul>
                         <li class="list-name" *ngFor="let name_develop of item.developNames; ">
                             {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
                         </li>
                     </ul></td>
-                    <td  class="text-center">
+                    <td  class="text-center box-top">
                         <label *ngIf="item.approve">อนุมัติแล้ว</label>
                         <label *ngIf="!item.approve">กำลังรอการอนุมัติ</label>
                     </td>
