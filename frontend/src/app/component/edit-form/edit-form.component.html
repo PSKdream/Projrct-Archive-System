@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="graduation-year">ปีที่สำเร็จการศึกษา</label>
-                    <input type="text" class="form-control mt-2" formControlName="graduation_year" required
+                    <input type="number" min="1900" max="2099" class="form-control mt-2" formControlName="graduation_year" required
                         [ngClass]="{'is-invalid': submit_form.get('graduation_year').errors?.required && submit_form.get('graduation_year').touched}">
                     <small
                         *ngIf="submit_form.get('graduation_year').errors && submit_form.get('graduation_year').touched "
@@ -117,15 +117,19 @@
                         project_type is required</small>
                 </div>
                 <div class="mt-2 mb-3">
-                    <label for="course">ไฟล์รูปเล่ม (.PDF)</label>
+                    <label for="course">ไฟล์รูปเล่ม (.PDF)  <label class="text-danger">{{fileAlert}}</label></label>
                     <div class="input-group  mt-2">
                         <input type="file" class="form-control" id="inputGroupFile02" (change)="uploadFile($event)">
                         <label class="input-group-text" for="inputGroupFile02">Upload</label>
                     </div>
-                    <small class="text-danger">{{fileAlert}}</small>
                 </div>
-                <div class="form-group mt-2 text-center">
-                    <button class="btn btn-primary btn-block mt-3" type="submit">Submit</button>
+                <div class="form-group mt-4 text-center">
+                    <button class="btn btn-primary btn-block" type="submit"
+                        *ngIf="!paddingServer">Submit</button>
+                    <button class="btn btn-primary" type="button" disabled *ngIf="paddingServer">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Submit...
+                    </button>
                 </div>
             </form>
         </div>

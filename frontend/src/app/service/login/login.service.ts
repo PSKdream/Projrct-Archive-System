@@ -43,7 +43,7 @@ export class LoginService {
     let API_URL = `${this.Rest_API}/validate-login`;
     return this.httpClient.post(API_URL,data, { headers: this.httpHeaders })
       .pipe(map((res: any) => {
-        this.dataAccount.push(res)
+        this.dataAccount=res
         return this.getDataUser() || {}
       }),
       catchError(this.handleError)

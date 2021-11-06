@@ -1,1 +1,18 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+.box{
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
+    padding: 30px;
+    width: auto;
+    height: auto;
+    box-shadow: 0 0 50px #666;
+    border-radius: 20px;
+}
+.h1{
+    font-family:monospace;
+}
+.container{
+    width: 100vh;
+}
+

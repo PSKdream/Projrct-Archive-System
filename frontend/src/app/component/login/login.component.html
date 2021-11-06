@@ -4,7 +4,7 @@
     <div class="bg bg3"></div>
     <div class="box my-3 border-dark rounded">
         <div class="p-5 pt-4 ">
-            <div class="text-center pb-3 border-bottom">
+            <div class="text-center pt-4 pb-1 border-bottom">
                 <h1 class="">LOGIN</h1>
                 <p class="text-white-50 mb-5">Enter your username and password.</p>
             </div>
@@ -19,7 +19,7 @@
                         username is required</small>
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" required
+                    <input type="text" class="form-control" id="inputPassword" placeholder="Password" required
                     [ngClass]="(bioSection.get('password').touched || 
                     bioSection.get('password').dirty) &&
                     bioSection.get('password').errors ? 'is-invalid' : ''"

@@ -91,6 +91,7 @@ apiRoute.route('/update/:_id').put(multer.single('file'), async (req, res, next)
         }
         let data = JSON.parse(req.body.dataProject)
         data['approve'] = false
+        data['advisor_name'] = db.doc('users/'+data['advisor_name'])
         
         const folder = 'fileProject'
         const filename = `${folder}/${_id}`
@@ -156,7 +157,6 @@ apiRoute.route('/delete-project/:_id').delete(async(req, res, next)=>{
 apiRoute.route('/project').get(async (req, res, next) => {
     try {
         let data = await projectDb.get();
-
         let tempDict = []
         data.forEach(doc => {
             let tempData = doc.data()
@@ -171,8 +171,8 @@ apiRoute.route('/project').get(async (req, res, next) => {
 })
 apiRoute.route('/project/:_id').get(async (req, res, next) => {
     try {
-        // console.log(req.params._id);
         let data = await projectDb.doc(req.params._id).get();
+        
         data = data.data()
         let temp = await data.advisor_name.get()
         data.advisor_name = {

@@ -13,7 +13,6 @@ export class ResetPasswordComponent implements OnInit {
   @Input() itemData:any;
   @Output() onDone = new EventEmitter<any>();
   textAlert = ""
-  md5 = new Md5();
 
   formSection = new FormGroup({
     username: new FormControl(''),
@@ -44,7 +43,7 @@ export class ResetPasswordComponent implements OnInit {
     this.textAlert = ""
     let data = {
       _id : this.itemData._id,
-      password: String(this.md5.appendStr(this.formSection.value.password).end()),
+      password: this.formSection.value.password,
     }
 
     this._LoginService.updatePassword(data).subscribe(() => {

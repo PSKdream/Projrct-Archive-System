@@ -15,7 +15,6 @@ export class InsertUserComponent implements OnInit {
   @ViewChild('closeModel') closeModel: ElementRef;
   @Output() onDone = new EventEmitter<any>();
 
-  md5 = new Md5();
   textAlert = ""
 
   bioSection = new FormGroup({
@@ -58,7 +57,7 @@ export class InsertUserComponent implements OnInit {
 
     let data = {
       username: this.bioSection.value.username,
-      password: String(this.md5.appendStr(this.bioSection.value.password).end()),
+      password: this.bioSection.value.password,
       firstname: this.bioSection.value.firstname,
       lastname: this.bioSection.value.lastname,
       role: this.bioSection.value.role

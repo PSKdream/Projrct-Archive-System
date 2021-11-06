@@ -12,17 +12,12 @@ import { faUser, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 })
 export class LoginComponent implements OnInit {
   loginFail = ""
-  md5 = new Md5();
   faUser = faUser;
 
   bioSection = new FormGroup({
     username: new FormControl('',Validators.required),
     password: new FormControl('',[Validators.required,Validators.minLength(8)])
   });
-  clicksub() {
-    console.log(this.bioSection.value);
-    this.bioSection.reset();
-  }
   constructor(private _loginService: LoginService, private router: Router,
     private ngZone: NgZone) { }
   ngOnInit() {
@@ -34,9 +29,9 @@ export class LoginComponent implements OnInit {
   callingFunction() {
     let data = {
       username: this.bioSection.value.username,
-      password: String(this.md5.appendStr(this.bioSection.value.password).end()),
+      password: this.bioSection.value.password,
     }
-
+    // this.bioSection.reset();
 
     this._loginService.login(data).subscribe((res) => {
       console.log("Login successfully", res);

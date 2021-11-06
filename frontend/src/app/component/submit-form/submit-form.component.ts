@@ -1,8 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ProjectService } from '../../service/project/project.service';
 import { LoginService } from '../..//service/login/login.service';
+import { ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-submit-form',
@@ -10,7 +11,7 @@ import { LoginService } from '../..//service/login/login.service';
   styleUrls: ['./submit-form.component.scss']
 })
 export class SubmitFormComponent implements OnInit {
-
+  @ViewChild('inputFile') inputFile: ElementRef;
   formData = new FormData();
   submit_form = new FormGroup({
     course: new FormControl('', Validators.required),
@@ -33,13 +34,16 @@ export class SubmitFormComponent implements OnInit {
   fileUpload = false;
   fileAlert = '';
   teacherList = Array()
+  paddingServer = false
 
-  constructor(private _projectService: ProjectService,private _loginService :LoginService) {
+  constructor(private _projectService: ProjectService,
+    private _loginService: LoginService,) {
+    this.inputFile = new ElementRef<any>(null)
   }
 
   ngOnInit(): void {
     // console.log(this.submit_form.value);
-    this._loginService.getTeacherList().subscribe((res)=>{
+    this._loginService.getTeacherList().subscribe((res) => {
       this.teacherList = res
     })
   }
@@ -59,34 +63,45 @@ export class SubmitFormComponent implements OnInit {
   }
 
   submitProject() {
-    console.log(this.submit_form.status);
-    if (this.submit_form.status === 'INVALID' || this.fileUpload === false) {
+    if (this.submit_form.status === 'INVALID') {
       alert('Please check input')
       return
     }
+    if (this.fileUpload === false) {
+      alert('Please check file type')
+      return
+    }
+    this.paddingServer = true
     this._projectService.upload(this.formData).subscribe((res) => {
-      console.log("upload successfully", res);
-      alert('OK')
+      alert('Submit successfully')
+      this.submit_form.reset()
+      this.formData = new FormData();
+      this.fileUpload = false;
+      this.inputFile.nativeElement.value = ""
+      this.paddingServer = false
     }, (err) => {
       console.log(err.error);
+      this.paddingServer = false
     })
-
   }
 
 
   uploadFile(event: any) {
     const file: File = event.target.files[0];
+    let data = this.submit_form.value
+    data.graduation_year = String(data.graduation_year)
     if (file) {
       if (file.type != 'application/pdf') {
-        this.fileAlert = 'file type invalid'
+        this.fileAlert = 'File type invalid'
         return
       }
       this.fileAlert = ''
       this.fileUpload = true;
       this.formData.append("file", file);
-      this.formData.append("dataProject", JSON.stringify(this.submit_form.value));
+
+      this.formData.append("dataProject", JSON.stringify(data));
     } else {
-      this.fileAlert = 'file is required'
+      this.fileAlert = 'File is required'
     }
   }
 }

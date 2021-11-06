@@ -33,14 +33,15 @@ export class EditFormComponent implements OnInit {
   developNames = this.submit_form.get('developNames') as FormArray;
   fileUpload = false;
   fileAlert = '';
-  _id:string
+  _id: string
   data: any
-  approve:boolean
+  approve: boolean
   teacherList = Array()
+  paddingServer = false
 
   constructor(private _projectService: ProjectService,
-    private route: ActivatedRoute,private _loginService :LoginService, private router: Router, private ngZone: NgZone) {
-      
+    private route: ActivatedRoute, private _loginService: LoginService, private router: Router, private ngZone: NgZone) {
+
   }
 
   ngOnInit(): void {
@@ -57,7 +58,7 @@ export class EditFormComponent implements OnInit {
     }, (err) => {
       this.ngZone.run(() => this.router.navigateByUrl('/home'))
     })
-    this._loginService.getTeacherList().subscribe((res)=>{
+    this._loginService.getTeacherList().subscribe((res) => {
       this.teacherList = res
     })
   }
@@ -77,16 +78,22 @@ export class EditFormComponent implements OnInit {
   }
 
   submitProject() {
-    console.log(this.submit_form.status);
-    if (this.submit_form.status === 'INVALID' || this.fileUpload === false) {
+    if (this.submit_form.status === 'INVALID') {
       alert('Please check input')
       return
     }
-    this._projectService.update(this.formData,this._id).subscribe((res) => {
+    if (this.fileUpload === false) {
+      alert('Please check file type')
+      return
+    }
+    this.paddingServer = true
+    this._projectService.update(this.formData, this._id).subscribe((res) => {
       console.log("upload successfully", res);
-      alert('OK')
+      alert('Submit successfully')
+      this.paddingServer = false
     }, (err) => {
       console.log(err.error);
+      this.paddingServer = false
     })
 
   }
@@ -94,18 +101,20 @@ export class EditFormComponent implements OnInit {
 
   uploadFile(event: any) {
     const file: File = event.target.files[0];
+    let data = this.submit_form.value
+    data.graduation_year = String(data.graduation_year)
     if (file) {
       if (file.type != 'application/pdf') {
-        this.fileAlert = 'file type invalid'
+        this.fileAlert = 'File type invalid'
         return
       }
       this.fileAlert = ''
       this.fileUpload = true;
       this.formData.append("file", file);
-      this.formData.append("dataProject", JSON.stringify(this.submit_form.value));
+
+      this.formData.append("dataProject", JSON.stringify(data));
     } else {
-      this.fileAlert = 'file is required'
+      this.fileAlert = 'File is required'
     }
   }
-
 }
