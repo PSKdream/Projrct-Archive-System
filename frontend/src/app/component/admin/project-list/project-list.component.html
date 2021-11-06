@@ -21,7 +21,10 @@
                             {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
                         </li>
                     </ul></td>
-                    <td  class="text-center">อนุมัติแล้ว</td>
+                    <td  class="text-center">
+                        <label *ngIf="item.approve">อนุมัติแล้ว</label>
+                        <label *ngIf="!item.approve">กำลังรอการอนุมัติ</label>
+                    </td>
                 </tr>
             </tbody>
         </table>

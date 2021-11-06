@@ -8,6 +8,8 @@ import { ProjectListComponent } from './component/admin/project-list/project-lis
 import { SubmitFormComponent } from './component/submit-form/submit-form.component';
 import { ProjectDetailComponent } from './component/admin/project-detail/project-detail.component';
 import { EditFormComponent } from './component/edit-form/edit-form.component';
+import { UserProjectDetailComponent } from './component/home/user-project-detail/user-project-detail.component';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,7 +21,7 @@ const routes: Routes = [
   { path: 'test', component: TestComponent },
   { path: 'submit', component: SubmitFormComponent },
   // { path: 'projectlist', component: ProjectListComponent },
-  { path: 'project-detail/:id', component: ProjectDetailComponent },
+  { path: 'project-detail/:id', component: UserProjectDetailComponent },
   { path: 'project-update/:id', component: EditFormComponent },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },

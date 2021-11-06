@@ -27,6 +27,7 @@ export class projectAttribute {
 })
 export class ProjectDetailComponent implements OnInit {
   @Input() _idInput: string;
+  @Input() role: string;
   data: projectAttribute = {
     project_nameTH: "",
     project_nameEng: "",

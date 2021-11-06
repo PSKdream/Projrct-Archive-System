@@ -21,6 +21,7 @@ import { EditFormComponent } from './component/edit-form/edit-form.component';
 import { DashboardComponent } from './component/admin/dashboard/dashboard.component';
 import { ChartModule } from 'angular2-chartjs';
 import { UserNevbarComponent } from './component/user-nevbar/user-nevbar.component';
+import { UserProjectDetailComponent } from './component/home/user-project-detail/user-project-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { UserNevbarComponent } from './component/user-nevbar/user-nevbar.compone
     EditFormComponent,
     DashboardComponent,
     UserNevbarComponent,
+    UserProjectDetailComponent,
   ],
   imports: [
     BrowserModule,
