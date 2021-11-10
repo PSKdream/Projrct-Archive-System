@@ -11,9 +11,20 @@
     background-color: rgba(157, 6, 33, 1);
 }
 
-.nav-position{
-    padding-right: 30px;
-}
+// .nav-position{
+//     padding-right: 30px;
+// }
+
+.dropdown-pull-right {
+    float: right !important;
+    right: 0;
+    left: auto;
+  }
+  
+  .dropdown-pull-right>.dropdown-menu {
+    right: 0;
+    left: auto;
+  }
 //  .container-admin-sidebar{
 //     width: 100%;
 //     padding-right: var(--bs-gutter-x,.75rem);
