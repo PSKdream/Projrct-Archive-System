@@ -1,60 +1,60 @@
 <div>
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active " aria-current="page" [routerLink]="['/admin']" >CPE Project Archive System</a>
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-bg">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active " aria-current="page" [routerLink]="['/admin']">CPE Project Archive System</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active " aria-current="page" [routerLink]="['/admin/project']">Project</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active " aria-current="page" [routerLink]="['/admin/user-management']">Account</a>
+          </li>
+        </ul>
+
+        
+        
+          <div class="btn-group ">
+            <a class="dropdown-toggle link-light text-decoration-none nav-position" data-bs-toggle="dropdown"
+              aria-expanded="false" href="" >
+              {{(dataUser == undefined)? 'Userundefined' :dataUser.username}}
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li>
+                <a class="dropdown-item" (click)="resetPassword()">Reset password</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active " aria-current="page" [routerLink]="['/admin/project']" >Project</a>
+              <li>
+                <hr class="dropdown-divider">
               </li>
-              <li class="nav-item">
-                <a class="nav-link active " aria-current="page" [routerLink]="['/admin/user-management']" >Account</a>
-              </li>
+              <li><a class="dropdown-item" (click)="singOut()">Sign out</a></li>
             </ul>
-
-            <div class="dropdown ">
-                <!-- Split dropup button -->
-                <div class="btn-group">
-                    <a class="dropdown-toggle link-light text-decoration-none nav-position"
-                        data-bs-toggle="dropdown" aria-expanded="false" href="">
-                        {{(dataUser == undefined)? 'Userundefined' :dataUser.username}}
-                        <span class="visually-hidden" >Toggle Dropdown</span>
-
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" (click)="resetPassword()">Reset password</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
-                </div>
-
-            </div>
           </div>
-          
+
+
         </div>
-      </nav>
+   
+
+    </div>
+  </nav>
 </div>
 
 <div class="container">
-    <!-- <app-reset-password class="dropdown-item" [itemData]="dataUser" hidden >
-        <label #openModel >
-            Reset password
-        </label>
-    </app-reset-password> -->
-    <!-- {{content}} -->
-    <app-dashboard *ngIf="content === 'admin'"></app-dashboard>
-    <app-user-management *ngIf="content === 'user-management'"></app-user-management>
-    <app-project-list *ngIf="content === 'project'"></app-project-list>
-    <app-project-detail *ngIf="content === 'project-detail'" [_idInput]='projectDetail' [role]="'admin'" ></app-project-detail>
+  <app-reset-password [itemData]="dataUser">
+    <label #openModel>
+    </label>
+  </app-reset-password>
+  <!-- {{content}} -->
+  <app-dashboard *ngIf="content === 'admin'"></app-dashboard>
+  <app-user-management *ngIf="content === 'user-management'"></app-user-management>
+  <app-project-list *ngIf="content === 'project'"></app-project-list>
+  <app-project-detail *ngIf="content === 'project-detail'" [_idInput]='projectDetail' [role]="'admin'">
+  </app-project-detail>
 
 </div>
-

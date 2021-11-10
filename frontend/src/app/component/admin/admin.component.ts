@@ -9,6 +9,7 @@ export class Account {
   firstname!: String;
   lastname!: String;
   role!: String;
+  delete!: boolean;
 }
 
 
@@ -20,7 +21,7 @@ export class Account {
 export class AdminComponent implements OnInit {
   contentList = ['user-management', 'project','project-detail']
   content='admin'
-  dataUser: any
+  dataUser: Account
   projectDetail = ''
   @ViewChild('openModel') openModel: ElementRef;
 
@@ -42,7 +43,12 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataUser = this._loginService.getDataUser()[0]
+    this.dataUser = this._loginService.getDataUser()
+
+    console.log(this.dataUser);
+    if(this.dataUser === undefined){
+      this.singOut()
+    }
     // this.content = this.route.snapshot.url[1].path;
     if(this.route.snapshot.url.length >= 2){
       this.content = this.route.snapshot.url[1].path
@@ -50,12 +56,17 @@ export class AdminComponent implements OnInit {
     if(this.route.snapshot.url.length == 3){
       this.projectDetail = this.route.snapshot.url[2].path
     }
-    console.log(this.route.snapshot.url);
-    console.log('dddddd', this.dataUser);
+    // console.log(this.route.snapshot.url);
+    // console.log('dddddd', this.dataUser);
+    
   }
 
   resetPassword() {
     this.openModel.nativeElement.click();
+  }
+  singOut(){
+    this._loginService.deleteDataUser()
+    this.ngZone.run(() => this.router.navigateByUrl('/'))
   }
 
 }

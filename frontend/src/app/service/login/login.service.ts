@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 export class addAccount {
   username!: String;
@@ -20,6 +21,7 @@ export class Account {
   firstname!: String;
   lastname!: String;
   role!: String;
+  delete!: boolean;
 }
 
 @Injectable({
@@ -31,19 +33,29 @@ export class LoginService {
   // set Http header
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-  dataAccount:Account[] = [];
+  // dataAccount:Account[] = [];
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private cookieService: CookieService) { }
 
+  deleteDataUser(){
+    this.cookieService.delete('userAccount');
+  }
   getDataUser(){
-    return this.dataAccount
+    try {
+      return this.cookieService.get('userAccount')!==''?JSON.parse(this.cookieService.get('userAccount')):undefined
+    } catch (error) {
+      console.log(error);
+      return undefined
+    }
   }
 
   login(data: loginAccount): Observable<any> {
     let API_URL = `${this.Rest_API}/validate-login`;
     return this.httpClient.post(API_URL,data, { headers: this.httpHeaders })
       .pipe(map((res: any) => {
-        this.dataAccount=res
+        // this.dataAccount=res
+        // console.log(res);
+        this.cookieService.set('userAccount',JSON.stringify(res));
         return this.getDataUser() || {}
       }),
       catchError(this.handleError)

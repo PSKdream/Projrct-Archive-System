@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
       // let tempPendding = Array()
       // let tempAccept = Array()
       this.label = [...tempLabel].sort()
-      console.log(this.label, tempLabel);
+      // console.log(this.label, tempLabel);
 
       for await (const value of this.label) {
         let inx = tempLabel.indexOf(value)
