@@ -24,7 +24,13 @@
           <ul class="list-group">
             <a class="text-decoration-none" [routerLink]="'/project-detail/'+item._id" *ngFor="let item of project[i];">
               <li class="list-group-item">
-                โครงงาน{{item.project_nameTH}}
+                <div class="row">
+                  <div class="col">โครงงาน{{item.project_nameTH}}</div>
+                  <div class="col text-end">
+                    <div *ngIf='item.approve' class="text-success">อนุมัติแล้ว</div>
+                    <div *ngIf='!item.approve' class="text-warning">รอการอนุมัติ</div>
+                  </div>
+                </div>
               </li>
             </a>
           </ul>

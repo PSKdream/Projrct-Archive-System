@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { ProjectService } from '../../../service/project/project.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { ProjectService } from '../../../service/project/project.service';
   styleUrls: ['./project-list.component.scss']
 })
 export class ProjectListComponent implements OnInit {
-
+  @Input() userData:any;
   dataProjectList:any;
 
   constructor( private _ProjectService: ProjectService) {}
@@ -15,7 +15,9 @@ export class ProjectListComponent implements OnInit {
   ngOnInit(): void {
     this._ProjectService.getProject().subscribe((res) =>{
       this.dataProjectList = res
-      console.log("project",this.dataProjectList);
+      console.log("project");
+      console.log(this.userData);
+      console.log(res);
     })
     // console.log("project",this.dataProjectList);
   }

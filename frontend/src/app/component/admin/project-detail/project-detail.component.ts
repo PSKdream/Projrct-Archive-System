@@ -74,7 +74,8 @@ export class ProjectDetailComponent implements OnInit {
 
   handleClick() {
     this._projectService.approve({ '_id': this._id, 'approve': true }).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
+      window.location.reload();
     })
   }
 

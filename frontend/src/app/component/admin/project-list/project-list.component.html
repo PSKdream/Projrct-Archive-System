@@ -5,28 +5,50 @@
             <div>
             </div>
         </div>
-        <table class="table mt-5">
-            <thead>
-                <tr>
-                    <th scope="col-4">Project name</th>
-                    <th scope="col-4"> Name</th>
-                    <td scope="col-2" class="text-center">Status</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="pointer" [routerLink]="['/admin/project-detail/'+item._id]" *ngFor="let item of dataProjectList;" >
-                    <th scope="row" class="box-top">{{item.project_nameTH}}</th>
-                    <td class="box-top"> <ul>
-                        <li class="list-name" *ngFor="let name_develop of item.developNames; ">
-                            {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
-                        </li>
-                    </ul></td>
-                    <td  class="text-center box-top">
-                        <label *ngIf="item.approve">อนุมัติแล้ว</label>
-                        <label *ngIf="!item.approve">กำลังรอการอนุมัติ</label>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="mt-4 ps-4 pe-4">
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th scope="col-4">Project name</th>
+                        <th scope="col-4"> Name</th>
+                        <td scope="col-2" class="text-center">Status</td>
+                    </tr>
+                </thead>
+                <tbody *ngIf = "userData.role==='Administrator'">
+                    <tr class="pointer" [routerLink]="['/admin/project-detail/'+item._id]"
+                        *ngFor="let item of dataProjectList;">
+                        <th scope="row" class="box-top">{{item.project_nameTH}}</th>
+                        <td class="box-top">
+                            <ul>
+                                <li class="list-name" *ngFor="let name_develop of item.developNames; ">
+                                    {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="text-center box-top">
+                            <div *ngIf="item.approve" class="text-success">อนุมัติแล้ว</div>
+                            <div *ngIf="!item.approve" class="text-warning">กำลังรอการอนุมัติ</div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf = "userData.role==='Teacher'">
+                    <tr class="pointer" [routerLink]="['/admin/project-detail/'+item._id]"
+                        *ngFor="let item of dataProjectList;">
+                        <th scope="row" class="box-top" *ngIf="item.advisor_name._path.segments[1]===userData._id">{{item.project_nameTH}}</th>
+                        <td class="box-top" *ngIf="item.advisor_name._path.segments[1]===userData._id">
+                            <ul>
+                                <li class="list-name" *ngFor="let name_develop of item.developNames; ">
+                                    {{name_develop.ID + ' ' + name_develop.firstname + ' ' + name_develop.lastname}}
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="text-center box-top" *ngIf="item.advisor_name._path.segments[1]===userData._id">
+                            <div *ngIf="item.approve" class="text-success">อนุมัติแล้ว</div>
+                            <div *ngIf="!item.approve" class="text-warning">กำลังรอการอนุมัติ</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

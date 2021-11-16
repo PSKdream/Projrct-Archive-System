@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter , ViewChild, ElementRef,Input,Output } from '@angular/core';
 import { LoginService } from '../../../../service/login/login.service';
 import {FormControl,FormGroup} from '@angular/forms';
-import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-reset-password',

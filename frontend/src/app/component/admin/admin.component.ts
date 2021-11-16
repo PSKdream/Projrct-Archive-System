@@ -45,7 +45,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.dataUser = this._loginService.getDataUser()
 
-    console.log(this.dataUser);
+    // console.log(this.dataUser);
     if(this.dataUser === undefined){
       this.singOut()
     }
