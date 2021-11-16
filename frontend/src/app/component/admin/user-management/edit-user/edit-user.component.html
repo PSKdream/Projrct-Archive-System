@@ -1,6 +1,8 @@
-<button class="btn btn-success "><i class="bi bi-pencil-square text-light" style="cursor: pointer; " data-bs-toggle="modal" [attr.data-bs-target]="'#'+itemData._id"></i> แก้ไข</button>
+<button class="btn btn-success" data-bs-toggle="modal" [attr.data-bs-target]="'#'+itemData._id"><i
+        class="bi bi-pencil-square text-light" style="cursor: pointer; "></i> แก้ไข</button>
 <!-- Modal Insert User -->
-<div class="modal fade model-update" id="{{itemData._id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade model-update" id="{{itemData._id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -19,7 +21,9 @@
                             <div class="mb-3">
                                 <input readonly type="username" class="form-control" id="inputUsername"
                                     formControlName="username">
-                                <small  *ngIf="formSection.get('username').errors && formSection.get('username').touched " class="text-danger">
+                                <small
+                                    *ngIf="formSection.get('username').errors && formSection.get('username').touched "
+                                    class="text-danger">
                                     everything is required</small>
                             </div>
                         </div>
@@ -34,7 +38,9 @@
                             <div class="mb-3">
                                 <input type="firstname" class="form-control" id="inputFirstname "
                                     formControlName="firstname">
-                                <small  *ngIf="formSection.get('firstname').errors && formSection.get('firstname').touched " class="text-danger">
+                                <small
+                                    *ngIf="formSection.get('firstname').errors && formSection.get('firstname').touched "
+                                    class="text-danger">
                                     everything is required</small>
                             </div>
                         </div>
@@ -47,13 +53,16 @@
                         </div>
                         <div class="col-8">
                             <div class="mb-3">
-                                <input type="lastname" class="form-control" id="inputLastname" formControlName="lastname">
-                                <small  *ngIf="formSection.get('lastname').errors && formSection.get('lastname').touched " class="text-danger">
+                                <input type="lastname" class="form-control" id="inputLastname"
+                                    formControlName="lastname">
+                                <small
+                                    *ngIf="formSection.get('lastname').errors && formSection.get('lastname').touched "
+                                    class="text-danger">
                                     everything is required</small>
                             </div>
                         </div>
                     </div>
-                    <div class="row" *ngIf = "!itemData.delete">
+                    <div class="row" *ngIf="!itemData.delete">
                         <div class="col-4">
                             <div class="mb-3 text-end">
                                 <label for="inputrole" class="col-form-label text-end">Role </label>
@@ -65,8 +74,8 @@
                                 <option value="Teacher">Teacher</option>
                                 <option value="Administrator">Administrator</option>
                             </select>
-                            <small *ngIf="formSection.get('role').errors && formSection.get('role').touched " 
-                            class="text-danger">everything is required</small>
+                            <small *ngIf="formSection.get('role').errors && formSection.get('role').touched "
+                                class="text-danger">everything is required</small>
                         </div>
                     </div>
                 </div>
