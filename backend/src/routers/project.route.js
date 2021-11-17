@@ -69,7 +69,7 @@ apiRoute.route('/upload').post(multer.single('file'), async (req, res, next) => 
             from: 'project-achive@pim.ac.th',                // sender
             to: `${data.developNames[0].ID}@stu.pim.ac.th`,                // list of receivers
             subject: 'Confirm submit project',              // Mail subject
-            html: `<b>You can edit submit <a href="http://localhost:4200/project-update/${_id}"><u>click</u></a></b>`   // HTML body
+            html: `<b>Project:${data.project_nameTH} <br> You can edit submit <a href="http://localhost:4200/project-update/${_id}"><u>click</u></a></b>`   // HTML body
         };
         transporter.sendMail(mailOptions, function (err, info) {
             if (err)
